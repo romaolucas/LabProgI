@@ -6,9 +6,13 @@
 #define DEFAULT_POWER 2
 #define DEFAULT_FREQUENCY 7
 #define CRITICAL_DISTANCE 7.77
+#include "general.h"
+
+/*Outros tipos de tiro podem ser adicionados mais tarde*/
+typedef enum {NORMAL} TIRO_TIPO;
 
 typedef struct {
-   int x, y, z;
+   Point *position;
    double accuracy;
    int hp;
    int damage;
@@ -18,14 +22,15 @@ typedef struct {
    double distance;
 } Defense;
 
-Defense initDefense(int x, int y, int z, int hp, int shotType);
+Defense *initDefense(int x, int y, int z, int hp, int shotType);
 
-int isDestroyed(Defense d);
+int isDestroyed(Defense *d);
 
-void calcDistance(Defense d, int xn, int yn, int zn);
 
-void hit(Defense d, int shotPower);
+void calcDistance(Defense *d, int xn, int yn, int zn);
 
-void alterAtkPattern(Defense d);
+void hit(Defense *d, int shotPower);
+
+void alterAtkPattern(Defense *d);
 
 #endif
