@@ -16,7 +16,7 @@ Defense *initDefense(Point *p, int hp, TIRO_TIPO shotType) {
    return d;
 }
 
-int isNaveDestroyed(Defense *d) {
+int isDefenseDestroyed(Defense *d) {
    return d->hp == 0;
 }
 
