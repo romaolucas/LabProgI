@@ -5,7 +5,7 @@
 
 typedef struct
 {
-  int x, y, z;
+  double x, y, z;
 } Point;
 
 typedef enum {
@@ -17,7 +17,7 @@ typedef enum {
 double calcDistance(Point *a, Point *b);
 
 /*Inicializador de pontos*/
-Point *initPoint(int x, int y, int z);
+Point *initPoint(double x, double y, double z);
 
 void *mallocSafe (size_t nbytes);
 #endif

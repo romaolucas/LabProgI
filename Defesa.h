@@ -7,9 +7,7 @@
 #define DEFAULT_FREQUENCY 7
 #define CRITICAL_DISTANCE 7.77
 #include "general.h"
-
-/*Outros tipos de tiro podem ser adicionados mais tarde*/
-typedef enum {NORMAL} TIRO_TIPO;
+#include "Tiro.h"
 
 typedef struct {
    Point *position;

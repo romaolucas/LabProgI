@@ -8,7 +8,7 @@ double calcDistance(Point *a, Point *b)
   return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2) + pow(a->z - b->z, 2));
 }
 
-Point *initPoint(int x, int y, int z)
+Point *initPoint(double x, double y, double z)
 {
   Point *ponto = malloc(sizeof(Point));
   ponto->x = x;
