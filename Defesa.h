@@ -23,7 +23,7 @@ typedef struct {
 
 Defense *initDefense(Point *p, int hp, TIRO_TIPO  shotType);
 
-int isDestroyed(Defense *d);
+int isNaveDestroyed(Defense *d);
 
 void hit(Defense *d, int shotPower);
 
