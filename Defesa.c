@@ -20,7 +20,7 @@ int isDefenseDestroyed(Defense *d) {
    return d->hp == 0;
 }
 
-void hit(Defense *d, int shotPower) {
+void defenseGotHit(Defense *d, int shotPower) {
    d->hp -= shotPower;
 }
 
