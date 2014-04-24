@@ -15,7 +15,6 @@ typedef struct {
    Point *position;
    double accuracy;
    int hp;
-   int damage;
    int shotPower;
    int shotFrequency;
    int shotType;
