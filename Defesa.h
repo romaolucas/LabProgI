@@ -22,12 +22,9 @@ typedef struct {
    double distance;
 } Defense;
 
-Defense *initDefense(int x, int y, int z, int hp, int shotType);
+Defense *initDefense(Point *p, int hp, TIRO_TIPO  shotType);
 
 int isDestroyed(Defense *d);
-
-
-void calcDistance(Defense *d, int xn, int yn, int zn);
 
 void hit(Defense *d, int shotPower);
 

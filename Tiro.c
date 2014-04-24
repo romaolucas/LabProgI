@@ -8,7 +8,7 @@ Descrição: aqui é tiro, porrada e bomba*/
 Tiro *initTiro(int px, int py, int pz, int ox, int oy, int oz, int velocity, int shotPower TIRO_TIPO tipo)
 {
   Tiro *t;
-  t = malloc(sizeof(Tiro));
+  t = mallocSafe(sizeof(Tiro));
   t->position = initPoint(px, py, pz);
   t->orientation = initPoint(ox, oy, oz);
   t->velocity = velocity;
