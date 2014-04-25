@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "Nave.h"
 #include "Tiro.h"
-#include "General.h"
+#include "general.h"
 
 Ship *ship;
 

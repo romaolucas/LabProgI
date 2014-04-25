@@ -27,4 +27,6 @@ void defenseGotHit(Defense *d, int shotPower);
 
 void alterAtkPattern(Defense *d);
 
+void freeDefense(Defense *d);
+
 #endif

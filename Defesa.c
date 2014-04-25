@@ -6,7 +6,7 @@
 Defense *initDefense(Point *p, int hp, TIRO_TIPO shotType) {
    Defense *d;
    d = mallocSafe(sizeof(Defense));
-   d->position = initPoint(p->x, p->y, p->z);
+   d->position = p;
    if (hp == 0) d->hp = DEFAULT_HP;
    if (shotType == NORMAL) {
      d->accuracy = DEFAULT_ACCURACY;
@@ -31,6 +31,9 @@ void alterAttackPattern(Defense *d) {
 /*Não basta dar free em d, precisa librera a struct position também*/
 void freeDefense(Defense *d)
 {
-  free(d->position);
-  free(d);
+  if(d != null)
+  {
+    free(d->position);
+    free(d);
+  }
 }
