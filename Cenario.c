@@ -27,9 +27,9 @@ void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType)
   }
   Point *p = initPoint(x, y, z);
   nodeDefense *corredor = defense_list;
-  while (corredor->next != null)
+  while (corredor->next != NULL)
     corredor = corredor->next;
-  corredor->next = initDefesa(p, hp, shotType);
+  corredor->next->defense = initDefense(p, hp, shotType);
 }
 
 void includeTiro(Tiro *t)
@@ -40,9 +40,9 @@ void includeTiro(Tiro *t)
     return;
   }
   nodeTiro *corredor  = tiro_list;
-  while(corredor->next != null)
+  while(corredor->next != NULL)
     corredor = corredor->next;
-  corredor->next = t;
+  corredor->next->tiro = t;
 }
 
 void freeCenario()
@@ -56,14 +56,14 @@ void freeListaTiros()
 {
   nodeTiro *corredor = tiro_list;
   nodeTiro *proximo = corredor->next;
-  while(proximo != null)
+  while(proximo != NULL)
   {
     freeTiro(corredor->tiro);
     free(corredor);
     corredor = proximo;
     proximo = proximo->next;
   }
-  /*Na última vez, o proximo vai chegar a null e o corredor não vai ser liberado.
+  /*Na última vez, o proximo vai chegar a NULL e o corredor não vai ser liberado.
     Para evitar isso, no final adicionamos:*/
   freeTiro(corredor->tiro);
   free(corredor);
@@ -73,7 +73,7 @@ void freeListaDefesas()
 {
   nodeDefense *corredor = defense_list;
   nodeDefense *proximo = corredor->next;
-  while(proximo != null)
+  while(proximo != NULL)
   {
     freeDefense(corredor->defense);
     free(corredor);

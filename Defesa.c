@@ -31,7 +31,7 @@ void alterAttackPattern(Defense *d) {
 /*Não basta dar free em d, precisa librera a struct position também*/
 void freeDefense(Defense *d)
 {
-  if(d != null)
+  if(d != NULL)
   {
     free(d->position);
     free(d);

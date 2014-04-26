@@ -19,7 +19,7 @@ Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower,
 
 void freeTiro(Tiro *t)
 {
-  if (t != null)
+  if (t != NULL)
   {
     free(t->position);
     free(t->orientation);

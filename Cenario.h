@@ -4,17 +4,20 @@
 #include "Defesa.h"
 #include "Tiro.h"
 
-typedef struct
+typedef struct nodeTiro nodeTiro;
+typedef struct nodeDefense nodeDefense;
+
+struct nodeTiro
 {
   Tiro *tiro;
   nodeTiro *next;
-} nodeTiro;
+} ;
 
-typedef struct
+struct nodeDefense
 {
   Defense *defense;
   nodeDefense *next;
-} nodeDefense;
+} ;
 
 /*Inicializa o cenario e as duas listas ligadas*/
 void initCenario();
@@ -25,9 +28,12 @@ void includeTiro(Tiro *tiro);
 
 /*Recebe os parâmetros gerados aleatoriamente, cria as structs
 (ponto, defense) e inclui na lista*/
-void includeDefense(int x, int y, int z, int hp, TIRO_TIPO shotType);
+void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType);
 
 /*Libera todas as defesas, tiros e as listas ligadas*/
 void freeCenario();
 
+void freeListaTiros();
+
+void freeListaDefesas();
 #endif

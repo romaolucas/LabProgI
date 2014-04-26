@@ -7,6 +7,8 @@
 #define INITIAL_SPOS 300
 #define INITIAL_HPOS 0
 
+#include "general.h"
+#include "Tiro.h"
 
 typedef struct
 {
