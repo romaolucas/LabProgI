@@ -24,3 +24,8 @@ Modifiquei Defesa.h e Defesa.c
      ou retorna uma struct, só ponteiros)
 
 -----------------------------------------------------------------------------------------------------
+
+====================================
+
+Anotação: não se esqueçam de usar o Makefile! É necessário ver se o módulo funciona ao fazer a integração com os demais.
+
