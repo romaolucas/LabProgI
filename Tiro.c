@@ -6,7 +6,7 @@ Descrição: aqui é tiro, porrada e bomba*/
 #include "Tiro.h"
 #define DEFAULT_DAMAGE 2
 
-Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower, TIRO_TIPO tipo)
+Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower)
 {
   Tiro *t;
   t = mallocSafe(sizeof(Tiro));
@@ -15,6 +15,7 @@ Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower,
   t->velocity = velocity;
   t->shotPower = shotPower;
   return t;  
+  
 }
 
 void freeTiro(Tiro *t)
