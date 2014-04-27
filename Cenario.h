@@ -28,7 +28,7 @@ void includeTiro(Tiro *tiro);
 
 /*Recebe os parâmetros gerados aleatoriamente, cria as structs
 (ponto, defense) e inclui na lista*/
-void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType);
+void includeDefense(Defense *d);
 
 /*Libera todas as defesas, tiros e as listas ligadas*/
 void freeCenario();
