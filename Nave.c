@@ -27,7 +27,7 @@ void naveShoot()
 {  
    Point *position = initPoint(1,1,1);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
    Point *orientation = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
-   Tiro *tiro = initTiro(position, orientation, INITIAL_SPEED, 10, NORMAL);
+   Tiro *tiro = initTiro(position, orientation, INITIAL_SPEED, DEFAULT_DMG);
    includeTiro(tiro);
 }
 
