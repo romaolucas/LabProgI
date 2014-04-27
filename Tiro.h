@@ -2,8 +2,10 @@
 #define H_TIRO_DEFINED
 #include "general.h" /*Pegar struct point*/
 
+#define DEFAULT_DAMAGE 2
 /*Outros tipos de tiro podem ser adicionados mais tarde*/
 typedef enum {NORMAL} TIRO_TIPO;
+
 
 typedef struct
 {
