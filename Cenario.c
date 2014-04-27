@@ -28,6 +28,8 @@ void includeDefense(Defense *d)
   nodeDefense *corredor = defenseList;
   while (corredor->next != NULL)
     corredor = corredor->next;
+  /*corredor->next é null agora*/
+  corredor->next = mallocSafe(sizeof(nodeDefense));
   corredor->next->defense = d;
 }
 
@@ -41,6 +43,8 @@ void includeTiro(Tiro *t)
   nodeTiro *corredor  = tiroList;
   while(corredor->next != NULL)
     corredor = corredor->next;
+  /*Corredor->next é null agora*/
+  corredor->next = mallocSafe(sizeof(nodeTiro));
   corredor->next->tiro = t;
 }
 
