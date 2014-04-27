@@ -9,8 +9,8 @@ Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType)
 {
   Tiro *t;
   t = mallocSafe(sizeof(Tiro));
-  t->position = initPoint(position->x, position->y, position->z);
-  t->orientation = initPoint(orientation->x, orientation->y, orientation->z);
+  t->position = position;
+  t->orientation = orientation;
   if (shotType == NORMAL){
      t->velocity = DEFAULT_VELO;
      t->shotPower = DEFAULT_DMG;
