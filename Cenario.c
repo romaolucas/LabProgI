@@ -4,15 +4,15 @@
 #include "Defesa.h"
 #include "Tiro.h"
 
-static nodeTiro *tiro_list;
-static nodeDefense *defense_list;
+static nodeTiro *tiroList;
+static nodeDefense *defenseList;
 static boolean init = FALSE;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
 void initCenario()
 {
-  tiro_list = mallocSafe(sizeof(nodeTiro));
-  defense_list = mallocSafe(sizeof(nodeDefense));
+  tiroList = mallocSafe(sizeof(nodeTiro));
+  defenseList = mallocSafe(sizeof(nodeDefense));
   /*Incluir aqui depois a parte em que o cenario é gerado aleatoriamente*/
   init = TRUE;
 }
@@ -26,7 +26,7 @@ void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType)
     return;
   }
   Point *p = initPoint(x, y, z);
-  nodeDefense *corredor = defense_list;
+  nodeDefense *corredor = defenseList;
   while (corredor->next != NULL)
     corredor = corredor->next;
   corredor->next->defense = initDefense(p, hp, shotType);
@@ -39,7 +39,7 @@ void includeTiro(Tiro *t)
     printf("ERRO: tentativa de incluir tiro sem inicializar listas\n");
     return;
   }
-  nodeTiro *corredor  = tiro_list;
+  nodeTiro *corredor  = tiroList;
   while(corredor->next != NULL)
     corredor = corredor->next;
   corredor->next->tiro = t;
@@ -54,7 +54,7 @@ void freeCenario()
 }
 void freeListaTiros()
 {
-  nodeTiro *corredor = tiro_list;
+  nodeTiro *corredor = tiroList;
   nodeTiro *proximo = corredor->next;
   while(proximo != NULL)
   {
@@ -71,7 +71,7 @@ void freeListaTiros()
 
 void freeListaDefesas()
 {
-  nodeDefense *corredor = defense_list;
+  nodeDefense *corredor = defenseList;
   nodeDefense *proximo = corredor->next;
   while(proximo != NULL)
   {
