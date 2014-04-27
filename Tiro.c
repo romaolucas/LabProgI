@@ -4,7 +4,6 @@ Descrição: aqui é tiro, porrada e bomba*/
 #include <stdlib.h>
 #include "general.h"
 #include "Tiro.h"
-#define DEFAULT_DAMAGE 2
 
 Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower)
 {
