@@ -23,6 +23,8 @@ typedef struct
 
 void initShip();
 
+void shipShoot();
+
 int isShipDestroyed();
 
 void shipGotHit(int dmg);
