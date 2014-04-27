@@ -2,7 +2,8 @@
 #define H_TIRO_DEFINED
 #include "general.h" /*Pegar struct point*/
 
-#define DEFAULT_DAMAGE 2
+#define DEFAULT_DMG 2
+#define DEFAULT_VELO 5
 /*Outros tipos de tiro podem ser adicionados mais tarde*/
 typedef enum {NORMAL} TIRO_TIPO;
 
@@ -16,7 +17,7 @@ typedef struct
   
 } Tiro;
 
-Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower);
+Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType);
 
 void freeTiro(Tiro *t);
 
