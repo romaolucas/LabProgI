@@ -11,11 +11,10 @@ typedef struct
   Point *orientation;
   int velocity;
   int shotPower;
-  TIRO_TIPO tipo;
   
 } Tiro;
 
-Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower, TIRO_TIPO tipo);
+Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower);
 
 void freeTiro(Tiro *t);
 
