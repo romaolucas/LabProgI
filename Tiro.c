@@ -5,14 +5,16 @@ Descrição: aqui é tiro, porrada e bomba*/
 #include "general.h"
 #include "Tiro.h"
 
-Tiro *initTiro(Point *position, Point *orientation, int velocity, int shotPower)
+Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType)
 {
   Tiro *t;
   t = mallocSafe(sizeof(Tiro));
   t->position = initPoint(position->x, position->y, position->z);
   t->orientation = initPoint(orientation->x, orientation->y, orientation->z);
-  t->velocity = velocity;
-  t->shotPower = shotPower;
+  if (shotType == NORMAL){
+     t->velocity = DEFAULT_VELO;
+     t->shotPower = DEFAULT_DMG;
+   } /*soh um tipo de tiro por enquanto*/
   return t;  
   
 }
