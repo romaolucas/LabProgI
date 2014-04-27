@@ -17,7 +17,7 @@ void initCenario()
   init = TRUE;
 }
 
-void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType)
+void includeDefense(Defense *d)
 {
   /*Se não estiver inicializado*/
   if(init == FALSE)
@@ -29,7 +29,7 @@ void includeDefense(double x, double y, double z, int hp, TIRO_TIPO shotType)
   nodeDefense *corredor = defenseList;
   while (corredor->next != NULL)
     corredor = corredor->next;
-  corredor->next->defense = initDefense(p, hp, shotType);
+  corredor->next->defense = d;
 }
 
 void includeTiro(Tiro *t)
