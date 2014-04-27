@@ -30,6 +30,8 @@ void includeTiro(Tiro *tiro);
 (ponto, defense) e inclui na lista*/
 void includeDefense(Defense *d);
 
+void imprimeCenario();
+
 /*Libera todas as defesas, tiros e as listas ligadas*/
 void freeCenario();
 

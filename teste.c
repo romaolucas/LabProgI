@@ -6,6 +6,23 @@
 #include "Cenario.h"
 
 int main() {
+   int i, k = 1;
+   Point *p, *q;
+   Defense *d;
+   Tiro *t;
+   initShip();
+   initCenario();
+   for (i = 0; i < 10; i++, k *= 7) {
+      p = initPoint(k*1.0, k*1.0, k*1.0);
+      q = initPoint(k*2.0, k*2.0, k*2.0);
+      d = initDefense(p, 0, NORMAL);
+      t = initTiro(q, p, NORMAL);
+      includeDefense(d);
+      includeTiro(t);
+   }
+   imprimeCenario();
+   freeShip();
+   freeCenario();
    printf("Testaremos tudo aqui!\n");
    return 0;
 }

@@ -29,6 +29,8 @@ int isShipDestroyed();
 
 void shipGotHit(int dmg);
 
+void freeShip();
+
 extern Ship *ship;
 
 

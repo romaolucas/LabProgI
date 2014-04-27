@@ -48,6 +48,24 @@ void includeTiro(Tiro *t)
   corredor->next->tiro = t;
 }
 
+void imprimeCenario() {
+   nodeDefense *p = defenseList->next;
+   nodeTiro *q = tiroList->next;
+   Point *c;
+   printf("Imprindo as defesas\n");
+   while (p != NULL) {
+      c = p->defense->position;
+      printf("Posicao (%4.2f, %4.2f, %4.2f)\n precisao: %4.2f\n hp: %d\n", c->x, c->y, c->z, p->defense->accuracy, p->defense->hp);
+      p = p->next;
+   }
+   printf("Imprimindo os tiros\n");
+   while (q != NULL) {
+      c = q->tiro->position;
+      printf("Posicao (%4.2f, %4.2f, %4.2f)\n", c->x, c->y, c->z);
+      q = q->next;
+   }
+}
+
 void freeCenario()
 {
   if (init == FALSE)
