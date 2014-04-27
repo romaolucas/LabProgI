@@ -25,7 +25,6 @@ void includeDefense(Defense *d)
     printf("ERRO: tentativa de incluir defesa sem inicializar listas\n");
     return;
   }
-  Point *p = initPoint(x, y, z);
   nodeDefense *corredor = defenseList;
   while (corredor->next != NULL)
     corredor = corredor->next;
