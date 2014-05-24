@@ -21,4 +21,6 @@ Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType);
 
 void freeTiro(Tiro *t);
 
+void updateTiro(Tiro *t);
+
 #endif

@@ -8,7 +8,7 @@
 static nodeTiro *tiroList;
 static nodeDefense *defenseList;
 static boolean init = FALSE;
-static int maxDefense = 10;
+static float maxDefense = 10;
 static int N = 0;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
@@ -116,13 +116,42 @@ void update() {
    Point *p;
    nodeDefense *d;
    nodeTiro *t;
-   if (N < maxDefense) {
+   /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
+   t = tiroList->next;
+   while (t != NULL){
+     updateTiro(t);
+   }
+   /*Cria nova defesa, se necessário*/
+   createDefense();
+   /*A fazer - cria novo tiro, se necessário*/
+   /*Checa colisões de tiro<=>defesa*/
+   collisionsDefense();
+   /*Checa colisão nave<=>tiro*/
+   collisionsShip();
+   /*movimenta nave de acordo com o que o usuario digitar
+    * W, A, S, D controlam a direcao
+    * U atirar
+    * comandos para mudar a orientacao, talvez? por hora,
+    * */
+   /*criar um role para movimentar os tiros pelo cenario,
+    * como vamos usar a orientacao do tiro?
+    * como vamos usar a orientacao da nave?
+    * */
+}
+void createDefense(){
+  if (N < (int) maxDefense) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(0.0, 500.0);
       p->y = RandomNumber(0.0, 600.0);
       p->z = RandomNumber(ship->scenarioPos, 1000.0 + ship->scenarioPos);
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
+}
+
+void collisionsDefense()
+{
+   nodeDefense *d;
+   nodeTiro *t;
    d = defenseList->next;
    while (d != NULL) {
       t = tiroList->next;
@@ -144,6 +173,9 @@ void update() {
       }
       else d = d->next;
    }
+}
+
+void collisionsShip(){
    t = tiroList->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
@@ -157,13 +189,4 @@ void update() {
       else t = t->next;
 
    }
-   /*movimenta nave de acordo com o que o usuario digitar
-    * W, A, S, D controlam a direcao
-    * U atirar
-    * comandos para mudar a orientacao, talvez? por hora,
-    * */
-   /*criar um role para movimentar os tiros pelo cenario,
-    * como vamos usar a orientacao do tiro?
-    * como vamos usar a orientacao da nave?
-    * */
 }

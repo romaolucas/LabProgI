@@ -3,13 +3,13 @@
 #define H_GENERAL_DEFINED
 #include <stdio.h>
 #define EPSILON 0.042
+#define DZ 5
 
 typedef struct
 {
   double x, y, z;
 } Point;
-
-typedef enum {
+typedef enum{
    FALSE,
    TRUE
 } boolean;
