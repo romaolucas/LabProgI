@@ -14,9 +14,9 @@ typedef struct
 {
   int hp;
   int speed;
-  int height;
-  int scenarioPos;
-  int horizontalPos;
+  double height;
+  double scenarioPos;
+  double horizontalPos;
   Point *orientation;
   TIRO_TIPO attackType;
 } Ship;
@@ -27,7 +27,7 @@ void shipShoot();
 
 int isShipDestroyed();
 
-void shipGotHit(int dmg);
+void shipGotHit(int shotPower);
 
 void freeShip();
 

@@ -14,7 +14,7 @@ void initShip()
     ship->height = INITIAL_HEIGHT;
     ship->scenarioPos = INITIAL_SPOS;
     ship->horizontalPos = INITIAL_HPOS;
-    ship->orientation = initPoint(0, 0, 0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0, 0.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
@@ -25,7 +25,7 @@ int isShipDestroyed()
 
 void naveShoot()
 {  
-   Point *position = initPoint(1,1,1);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
+   Point *position = initPoint(1.0,1.0,1.0);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
    Point *orientation = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
    Tiro *tiro = initTiro(position, orientation, NORMAL);
    includeTiro(tiro);

@@ -8,6 +8,11 @@ double calcDistance(Point *a, Point *b)
   return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2) + pow(a->z - b->z, 2));
 }
 
+int collision(Point *a, Point *b) {
+   if (calcDistance(a, b) <= EPSILON) return TRUE;
+   return FALSE;
+}
+
 Point *initPoint(double x, double y, double z)
 {
   Point *ponto = malloc(sizeof(Point));
@@ -43,4 +48,19 @@ mallocSafe (size_t nbytes)
 
    return ptr;
 }
- 
+
+// A função RandomInteger devolve um inteiro 
+// aleatório entre low e high inclusive,
+// ou seja, no intervalo fechado low..high.
+// Vamos supor que 0 <= low <= high < DOUBLE_MAX.
+// O código foi copiado da biblioteca random 
+// de Eric Roberts.
+
+double RandomNumber(double low, double high)
+{
+    double k;
+    double d;
+    d = (double) rand( ) / ((double) RAND_MAX + 1.0);
+    k = d * (high - low + 1.0);
+    return low + k;
+}

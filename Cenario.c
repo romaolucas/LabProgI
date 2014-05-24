@@ -3,10 +3,13 @@
 #include "Cenario.h"
 #include "Defesa.h"
 #include "Tiro.h"
+#include "Nave.h"
 
 static nodeTiro *tiroList;
 static nodeDefense *defenseList;
 static boolean init = FALSE;
+static int maxDefense = 10;
+static int N = 0;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
 void initCenario()
@@ -31,6 +34,7 @@ void includeDefense(Defense *d)
   /*corredor->next é null agora*/
   corredor->next = mallocSafe(sizeof(nodeDefense));
   corredor->next->defense = d;
+  N++;
 }
 
 void includeTiro(Tiro *t)
@@ -73,6 +77,7 @@ void freeCenario()
   freeListaTiros();
   freeListaDefesas();
 }
+
 void freeListaTiros()
 {
   nodeTiro *corredor = tiroList;
@@ -104,4 +109,61 @@ void freeListaDefesas()
   /*Aplica-se a mesma lógica do anterior*/
   freeDefense(corredor->defense);
   free(corredor);
+  N = 0;
+}
+
+void update() {
+   Point *p;
+   nodeDefense *d;
+   nodeTiro *t;
+   if (N < maxDefense) {
+      p = mallocSafe(sizeof(Point));
+      p->x = RandomNumber(0.0, 500.0);
+      p->y = RandomNumber(0.0, 600.0);
+      p->z = RandomNumber(ship->scenarioPos, 1000.0 + ship->scenarioPos);
+      includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
+   }
+   d = defenseList->next;
+   while (d != NULL) {
+      t = tiroList->next;
+      while (t != NULL) {
+         if (collision(d->defense->position, t->tiro->position)) {
+            defenseGotHit(d->defense, t->tiro->shotPower);
+            t = t->next;
+            nodeTiro *aux = t;
+            freeTiro(aux->tiro);
+            free(aux);
+         }
+         else t = t->next;
+      }
+      if (isDefenseDestroyed(d->defense)) {
+         nodeDefense *auxd = d;
+         d = d->next;
+         freeDefense(auxd->defense);
+         free(auxd);
+      }
+      else d = d->next;
+   }
+   t = tiroList->next;
+   while (t != NULL) {
+      /*criar um campo position para a nave*/
+      if (collision(ship->position, t->tiro->position)) {
+         shipGotHit(t->tiro->shotPower);
+         nodeTiro *aux = t;
+         t = t->next;
+         freeTiro(aux->tiro);
+         free(aux);
+       }
+      else t = t->next;
+
+   }
+   /*movimenta nave de acordo com o que o usuario digitar
+    * W, A, S, D controlam a direcao
+    * U atirar
+    * comandos para mudar a orientacao, talvez? por hora,
+    * */
+   /*criar um role para movimentar os tiros pelo cenario,
+    * como vamos usar a orientacao do tiro?
+    * como vamos usar a orientacao da nave?
+    * */
 }

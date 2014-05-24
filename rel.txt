@@ -1,0 +1,239 @@
+diff --git a/Cenario.c b/Cenario.c
+index f992739..cc9d290 100644
+--- a/Cenario.c
++++ b/Cenario.c
+@@ -3,10 +3,13 @@
+ #include "Cenario.h"
+ #include "Defesa.h"
+ #include "Tiro.h"
++#include "Nave.h"
+ 
+ static nodeTiro *tiroList;
+ static nodeDefense *defenseList;
+ static boolean init = FALSE;
++static int maxDefense = 10;
++static int N = 0;
+ 
+ /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
+ void initCenario()
+@@ -31,6 +34,7 @@ void includeDefense(Defense *d)
+   /*corredor->next é null agora*/
+   corredor->next = mallocSafe(sizeof(nodeDefense));
+   corredor->next->defense = d;
++  N++;
+ }
+ 
+ void includeTiro(Tiro *t)
+@@ -73,6 +77,7 @@ void freeCenario()
+   freeListaTiros();
+   freeListaDefesas();
+ }
++
+ void freeListaTiros()
+ {
+   nodeTiro *corredor = tiroList;
+@@ -104,4 +109,61 @@ void freeListaDefesas()
+   /*Aplica-se a mesma lógica do anterior*/
+   freeDefense(corredor->defense);
+   free(corredor);
++  N = 0;
++}
++
++void update() {
++   Point *p;
++   nodeDefense *d;
++   nodeTiro *t;
++   if (N < maxDefense) {
++      p = mallocSafe(sizeof(Point));
++      p->x = RandomNumber(0.0, 500.0);
++      p->y = RandomNumber(0.0, 600.0);
++      p->z = RandomNumber(ship->scenarioPos, 1000.0 + ship->scenarioPos);
++      includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
++   }
++   d = defenseList->next;
++   while (d != NULL) {
++      t = tiroList->next;
++      while (t != NULL) {
++         if (collision(d->defense->position, t->tiro->position)) {
++            defenseGotHit(d->defense, t->tiro->shotPower);
++            t = t->next;
++            nodeTiro *aux = t;
++            freeTiro(aux->tiro);
++            free(aux);
++         }
++         else t = t->next;
++      }
++      if (isDefenseDestroyed(d->defense)) {
++         nodeDefense *auxd = d;
++         d = d->next;
++         freeDefense(auxd->defense);
++         free(auxd);
++      }
++      else d = d->next;
++   }
++   t = tiroList->next;
++   while (t != NULL) {
++      /*criar um campo position para a nave*/
++      if (collision(ship->position, t->tiro->position)) {
++         shipGotHit(t->tiro->shotPower);
++         nodeTiro *aux = t;
++         t = t->next;
++         freeTiro(aux->tiro);
++         free(aux);
++       }
++      else t = t->next;
++
++   }
++   /*movimenta nave de acordo com o que o usuario digitar
++    * W, A, S, D controlam a direcao
++    * U atirar
++    * comandos para mudar a orientacao, talvez? por hora,
++    * */
++   /*criar um role para movimentar os tiros pelo cenario,
++    * como vamos usar a orientacao do tiro?
++    * como vamos usar a orientacao da nave?
++    * */
+ }
+diff --git a/Makefile b/Makefile
+index 048accd..2bf5d72 100644
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@ CFLAGS = -g -Wall -ansi -pedantic
+ teste: teste.c Defesa.o Tiro.o general.o Nave.o Cenario.o
+ 	$(CC) $(CFLAGS) $^ -o $@ -lm
+ 
+-Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.h
++Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.h Nave.h
+ 	$(CC) -lm -c Cenario.c
+ 
+ Defesa.o: Defesa.c Defesa.h general.h Tiro.h
+diff --git a/Nave.c b/Nave.c
+index 0f92740..b9cebe8 100644
+--- a/Nave.c
++++ b/Nave.c
+@@ -14,7 +14,7 @@ void initShip()
+     ship->height = INITIAL_HEIGHT;
+     ship->scenarioPos = INITIAL_SPOS;
+     ship->horizontalPos = INITIAL_HPOS;
+-    ship->orientation = initPoint(0, 0, 0);/*direcao do comeco*/
++    ship->orientation = initPoint(0.0, 0.0, 0.0);/*direcao do comeco*/
+     ship->attackType = NORMAL;
+ }
+ 
+@@ -25,7 +25,7 @@ int isShipDestroyed()
+ 
+ void naveShoot()
+ {  
+-   Point *position = initPoint(1,1,1);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
++   Point *position = initPoint(1.0,1.0,1.0);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
+    Point *orientation = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
+    Tiro *tiro = initTiro(position, orientation, NORMAL);
+    includeTiro(tiro);
+diff --git a/Nave.h b/Nave.h
+index adccabc..fd3dc59 100644
+--- a/Nave.h
++++ b/Nave.h
+@@ -14,9 +14,9 @@ typedef struct
+ {
+   int hp;
+   int speed;
+-  int height;
+-  int scenarioPos;
+-  int horizontalPos;
++  double height;
++  double scenarioPos;
++  double horizontalPos;
+   Point *orientation;
+   TIRO_TIPO attackType;
+ } Ship;
+@@ -27,7 +27,7 @@ void shipShoot();
+ 
+ int isShipDestroyed();
+ 
+-void shipGotHit(int dmg);
++void shipGotHit(int shotPower);
+ 
+ void freeShip();
+ 
+diff --git a/general.c b/general.c
+index 2943e00..50c11ad 100644
+--- a/general.c
++++ b/general.c
+@@ -8,6 +8,11 @@ double calcDistance(Point *a, Point *b)
+   return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2) + pow(a->z - b->z, 2));
+ }
+ 
++int collision(Point *a, Point *b) {
++   if (calcDistance(a, b) <= EPSILON) return TRUE;
++   return FALSE;
++}
++
+ Point *initPoint(double x, double y, double z)
+ {
+   Point *ponto = malloc(sizeof(Point));
+@@ -43,4 +48,19 @@ mallocSafe (size_t nbytes)
+ 
+    return ptr;
+ }
+- 
++
++// A função RandomInteger devolve um inteiro 
++// aleatório entre low e high inclusive,
++// ou seja, no intervalo fechado low..high.
++// Vamos supor que 0 <= low <= high < DOUBLE_MAX.
++// O código foi copiado da biblioteca random 
++// de Eric Roberts.
++
++double RandomNumber(double low, double high)
++{
++    double k;
++    double d;
++    d = (double) rand( ) / ((double) RAND_MAX + 1.0);
++    k = d * (high - low + 1.0);
++    return low + k;
++}
+diff --git a/general.h b/general.h
+index 825cb3e..5deab69 100644
+--- a/general.h
++++ b/general.h
+@@ -2,6 +2,7 @@
+ #ifndef H_GENERAL_DEFINED
+ #define H_GENERAL_DEFINED
+ #include <stdio.h>
++#define EPSILON 0.042
+ 
+ typedef struct
+ {
+@@ -20,4 +21,6 @@ double calcDistance(Point *a, Point *b);
+ Point *initPoint(double x, double y, double z);
+ 
+ void *mallocSafe (size_t nbytes);
++
++double RandomNumber(double low, double high);
+ #endif
+diff --git a/teste.c b/teste.c
+index 25761b5..a0383e4 100644
+--- a/teste.c
++++ b/teste.c
+@@ -7,19 +7,11 @@
+ 
+ int main() {
+    int i, k = 1;
+-   Point *p, *q, *r;
+-   Defense *d;
+-   Tiro *t;
+    initShip();
+    initCenario();
++   /*a ideia e tirarmos esse for e usarmos algo com o timestep e sair quando o usuario
++    * entrar com EOF ou com Q/<Insira uma letra de preferencia>*/
+    for (i = 0; i < 10; i++, k *= 7) {
+-      p = initPoint(k*1.0, k*1.0, k*1.0);
+-      r = initPoint(k*1.0, k*1.0, k*1.0);
+-      q = initPoint(k*2.0, k*2.0, k*2.0);
+-      d = initDefense(p, 0, NORMAL);
+-      t = initTiro(q, r, NORMAL);
+-      includeDefense(d);
+-      includeTiro(t);
+    }
+    imprimeCenario();
+    freeShip();

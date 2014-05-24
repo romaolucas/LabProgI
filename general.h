@@ -2,6 +2,7 @@
 #ifndef H_GENERAL_DEFINED
 #define H_GENERAL_DEFINED
 #include <stdio.h>
+#define EPSILON 0.042
 
 typedef struct
 {
@@ -20,4 +21,6 @@ double calcDistance(Point *a, Point *b);
 Point *initPoint(double x, double y, double z);
 
 void *mallocSafe (size_t nbytes);
+
+double RandomNumber(double low, double high);
 #endif
