@@ -18,7 +18,7 @@ Defense *initDefense(Point *p, int hp, TIRO_TIPO shotType) {
 }
 
 int isDefenseDestroyed(Defense *d) {
-   return d->hp <= 0;
+   return d->hp == 0;
 }
 
 void defenseGotHit(Defense *d, int shotPower) {
