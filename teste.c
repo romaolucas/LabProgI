@@ -6,16 +6,29 @@
 #include "Cenario.h"
 
 int main() {
-   int i, k = 1;
+   int gameRunning = TRUE;
    initShip();
    initCenario();
-   /*a ideia e tirarmos esse for e usarmos algo com o timestep e sair quando o usuario
+   /*a ideia eh usarmos algo com o timestep e sair quando o usuario
     * entrar com EOF ou com Q/<Insira uma letra de preferencia>*/
-   for (i = 0; i < 10; i++, k *= 7) {
+
+   clock_t start = clock();
+   int fps = 2;
+   double timestep = (double) 1 / fps;
+   while (gameRunning)
+   { 
+     clock_t now = clock();
+     if (((double) (now - start)) >= timestep)
+     {
+       update();
+       if (ship->vidas == 0) gameRunning = FALSE;
+       imprimeCenario();
+       start = now; 
+     }
+
    }
-   imprimeCenario();
-   freeShip();
-   freeCenario();
-   printf("Testaremos tudo aqui!\n");
+     freeShip();
+     freeCenario();
+   printf("Fim de execucao!\n");
    return 0;
 }
