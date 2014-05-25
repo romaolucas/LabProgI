@@ -11,7 +11,7 @@ Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.o general.h
 	
 	$(CC) -lm -c Cenario.c
 
-Defesa.o: Defesa.c Defesa.h general.h Tiro.h Cenario.h
+Defesa.o: Defesa.c Defesa.h general.h Nave.h Tiro.h Cenario.h
 	$(CC) -lm -c  Defesa.c
 
 Nave.o: Nave.c Nave.h general.h Tiro.h Cenario.h

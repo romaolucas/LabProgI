@@ -17,13 +17,14 @@ typedef struct {
    int shotFrequency;
    int shotType;
    double distance;
+   clock_t created;
 } Defense;
 
 Defense *initDefense(Point *p, int hp, TIRO_TIPO  shotType);
 
 int isDefenseDestroyed(Defense *d);
 
-boolean updateDefesa(Defense *d);
+boolean updateDefense(Defense *d);
 
 void defenseGotHit(Defense *d, int shotPower);
 

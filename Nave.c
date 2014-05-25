@@ -23,12 +23,11 @@ int isShipDestroyed()
    return ship->hp <= 0;
 }
 
-void naveShoot()
+void shipShoot()
 {  
-   Point *position = initPoint(1.0,1.0,1.0);/* valor tem que ser mudado para a posicao onde o tiro vai nascer */
+   Point *position = initPoint(ship->position->x, ship->position->y, ship->position->z + 2*EPSILON);
    Point *orientation = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
-   Tiro *tiro = initTiro(position, orientation, NORMAL);
-   includeTiro(tiro);
+   includeTiro(initTiro(position, orientation, NORMAL));
 }
 
 void shipGotHit(int dmg)
@@ -94,9 +93,8 @@ int updateShip()
          ship->orientation->x = ship->position->x;
          break;
       case 'u': case 'U':
-         p = initPoint(ship->position->x, ship->position->y, ship->position->z + 2*EPSILON);
-         q = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
-         includeTiro(initTiro(p, q, NORMAL));
+         shipShoot();
+         printf("Tiro disparado");
          break;
        case 'q': case 'Q': case EOF:
          return FALSE;         

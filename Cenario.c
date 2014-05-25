@@ -57,17 +57,11 @@ void imprimeCenario() {
    nodeDefense *p = defenseList->next;
    nodeTiro *q = tiroList->next;
    Point *c;
-   printf("Imprindo as defesas\n");
+   printf("Nave na posicao (%4.2ff, %4.2f, %4.2f)", ship->position->x, ship->position->y, ship->position->z);
    while (p != NULL) {
       c = p->defense->position;
-      printf("Posicao (%4.2f, %4.2f, %4.2f)\n precisao: %4.2f\n hp: %d\n", c->x, c->y, c->z, p->defense->accuracy, p->defense->hp);
+      printf("Posicao (%4.2f, %4.2f, %4.2f)\n hp: %d\n", c->x, c->y, c->z, p->defense->hp);
       p = p->next;
-   }
-   printf("Imprimindo os tiros\n");
-   while (q != NULL) {
-      c = q->tiro->position;
-      printf("Posicao (%4.2f, %4.2f, %4.2f)\n", c->x, c->y, c->z);
-      q = q->next;
    }
 }
 
@@ -158,7 +152,7 @@ int update() {
    while (d != NULL)
    {
      boolean test;
-     test = updateDefesa(d->defense);
+     test = updateDefense(d->defense);
      if (test || isDefenseDestroyed(d->defense)){
        nodeDefense *aux = d;
        d = d->next;

@@ -2,6 +2,7 @@
 #ifndef H_GENERAL_DEFINED
 #define H_GENERAL_DEFINED
 #include <stdio.h>
+#include <time.h>
 #define EPSILON 0.042
 #define DZ 5
 #define MAX_X 600
