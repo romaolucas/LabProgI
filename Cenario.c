@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "general.h"
 #include "Cenario.h"
 #include "Defesa.h"
 #include "Tiro.h"
@@ -112,33 +113,9 @@ void freeListaDefesas()
   N = 0;
 }
 
-void update() {
-   Point *p;
-   nodeDefense *d;
-   nodeTiro *t;
-   /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
-   t = tiroList->next;
-   while (t != NULL){
-     updateTiro(t);
-   }
-   /*Cria nova defesa, se necessário*/
-   createDefense();
-   /*A fazer - cria novo tiro, se necessário*/
-   /*Checa colisões de tiro<=>defesa*/
-   collisionsDefense();
-   /*Checa colisão nave<=>tiro*/
-   collisionsShip();
-   /*movimenta nave de acordo com o que o usuario digitar
-    * W, A, S, D controlam a direcao
-    * U atirar
-    * comandos para mudar a orientacao, talvez? por hora,
-    * */
-   /*criar um role para movimentar os tiros pelo cenario,
-    * como vamos usar a orientacao do tiro?
-    * como vamos usar a orientacao da nave?
-    * */
-}
+
 void createDefense(){
+  Point *p;
   if (N < (int) maxDefense) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(0.0, 500.0);
@@ -176,10 +153,10 @@ void collisionsDefense()
 }
 
 void collisionsShip(){
-   t = tiroList->next;
+   nodeTiro *t = tiroList->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
-      if (collision(ship->position, t->tiro->position)) {
+      if (collision(ship->orientation, t->tiro->position)) {
          shipGotHit(t->tiro->shotPower);
          nodeTiro *aux = t;
          t = t->next;
@@ -190,3 +167,60 @@ void collisionsShip(){
 
    }
 }
+
+void update() {
+   Point *p;
+   nodeDefense *d;
+   nodeDefense *a;
+   nodeTiro *at;
+   nodeTiro *t;
+   /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
+   at = tiroList;
+   t = at->next;
+   while (t != NULL){
+     boolean out;
+     out = updateTiro(t->tiro);
+     /*Precisa fazer isso pra não estragar a lista ligada quando for tirar*/
+     if (out){
+       at->next = t->next;
+       freeTiro(t->tiro);
+       free(t);
+       t = at->next;
+     }
+     at = t;
+     if (t != NULL)
+       t = t->next;
+   }
+   a = defenseList;
+   d = a->next;
+   while (d != NULL){
+     boolean test;
+     test = updateDefesa(d->defense);
+     if (test){
+       a->next = d->next;
+       freeDefense(d->defense);
+       free(d);
+       d = a->next;
+     }
+     a = d;
+     if (d != NULL)
+       d = d->next;   
+   }
+   /*Cria nova defesa, se necessário*/
+   createDefense();
+   /*A fazer - cria novo tiro, se necessário*/
+   /*Checa colisões de tiro<=>defesa*/
+   collisionsDefense();
+   /*Checa colisão nave<=>tiro*/
+   collisionsShip();
+   /*movimenta nave de acordo com o que o usuario digitar
+    * W, A, S, D controlam a direcao
+    * U atirar
+    * comandos para mudar a orientacao, talvez? por hora,
+    * */
+   /*criar um role para movimentar os tiros pelo cenario,
+    * como vamos usar a orientacao do tiro?
+    * como vamos usar a orientacao da nave?
+    * */
+}
+

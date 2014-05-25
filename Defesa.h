@@ -23,6 +23,8 @@ Defense *initDefense(Point *p, int hp, TIRO_TIPO  shotType);
 
 int isDefenseDestroyed(Defense *d);
 
+boolean updateDefesa(Defense *d);
+
 void defenseGotHit(Defense *d, int shotPower);
 
 void alterAtkPattern(Defense *d);

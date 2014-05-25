@@ -2,6 +2,7 @@
 Descrição: aqui é tiro, porrada e bomba*/
 
 #include <stdlib.h>
+#include <math.h>
 #include "general.h"
 #include "Tiro.h"
 
@@ -19,13 +20,15 @@ Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType)
   
 }
 
-void updateTiro(Tiro *t)
+boolean updateTiro(Tiro *t)
 {
   /*Tem que ter cuidado quando for definir t->orientation.
   Ele tem que ter norma 1*/
   t->position->x = t->orientation->x * t->velocity;
   t->position->y = t->orientation->y * t->velocity;
-  t->position->z = (t->orientation->z * t->velocity) + (double) DZ;
+  t->position->z = (t->orientation->z * t->velocity) - (double) DZ;
+  /*Nota: fabs == módulo da biblioteca math.h*/
+  return (fabs(t->position->x) > MAX_X || fabs(t->position->y) > MAX_Y || t->position->z < 0);
 }
 
 

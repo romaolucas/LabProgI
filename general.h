@@ -4,6 +4,8 @@
 #include <stdio.h>
 #define EPSILON 0.042
 #define DZ 5
+#define MAX_X 600
+#define MAX_Y 500
 
 typedef struct
 {

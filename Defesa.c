@@ -28,6 +28,12 @@ void alterAttackPattern(Defense *d) {
    if (d->distance <= CRITICAL_DISTANCE) d->shotFrequency += 2;
 }
 
+boolean updateDefesa(Defense *d)
+{
+  d->position->z -= (double) DZ;
+  return (d->position->z < 0);
+}
+
 /*Não basta dar free em d, precisa librera a struct position também*/
 void freeDefense(Defense *d)
 {
