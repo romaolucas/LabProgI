@@ -3,9 +3,9 @@
 
 #define INITIAL_HP 100
 #define INITIAL_SPEED 10
-#define INITIAL_HEIGHT 50
-#define INITIAL_SPOS 300
-#define INITIAL_HPOS 0
+#define INITIAL_HEIGHT 0.0
+#define INITIAL_SPOS 20.0
+#define INITIAL_HPOS 0.0
 
 #include "general.h"
 #include "Tiro.h"
@@ -14,9 +14,7 @@ typedef struct
 {
   int hp;
   int speed;
-  double height;
-  double scenarioPos;
-  double horizontalPos;
+  Point *position;
   Point *orientation;
   TIRO_TIPO attackType;
 } Ship;

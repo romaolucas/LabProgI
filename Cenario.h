@@ -38,4 +38,10 @@ void freeCenario();
 void freeListaTiros();
 
 void freeListaDefesas();
+
+void createDefense();
+
+void collisionsDefense();
+
+void collisionsShip();
 #endif

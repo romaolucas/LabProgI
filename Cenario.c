@@ -119,7 +119,7 @@ void update() {
    /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
    t = tiroList->next;
    while (t != NULL){
-     updateTiro(t);
+     updateTiro(t->tiro);
    }
    /*Cria nova defesa, se necessário*/
    createDefense();
@@ -138,12 +138,13 @@ void update() {
     * como vamos usar a orientacao da nave?
     * */
 }
-void createDefense(){
+void createDefense() {
+   Point *p;
   if (N < (int) maxDefense) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(0.0, 500.0);
       p->y = RandomNumber(0.0, 600.0);
-      p->z = RandomNumber(ship->scenarioPos, 1000.0 + ship->scenarioPos);
+      p->z = RandomNumber(ship->position->z, 1000.0 + ship->position->z);
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
 }
@@ -176,6 +177,7 @@ void collisionsDefense()
 }
 
 void collisionsShip(){
+   nodeTiro *t;
    t = tiroList->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
