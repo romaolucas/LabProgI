@@ -134,8 +134,8 @@ void collisionsDefense()
       while (t != NULL) {
          if (collision(d->defense->position, t->tiro->position)) {
             defenseGotHit(d->defense, t->tiro->shotPower);
-            t = t->next;
             nodeTiro *aux = t;
+            t = t->next;
             freeTiro(aux->tiro);
             free(aux);
          }
