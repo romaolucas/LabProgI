@@ -65,7 +65,8 @@ void collisionsShip(){
 
 int updateShip()
 { 
-   int c;
+   int qts;
+   char c;
    Point *p, *q;
    collisionsShip();/*Checa colisão nave<=>tiro*/
 
@@ -74,7 +75,8 @@ int updateShip()
     * U atirar
     * comandos para mudar a orientacao, talvez? por hora,
     * */
-   c = getchar();
+   printf("esperando aqui\n");
+   qts = scanf("%c", &c);
    switch (c) {
       case 'w': case 'W':
          ship->position->y += sqrt(3)*ship->speed;
@@ -97,7 +99,9 @@ int updateShip()
          printf("Tiro disparado");
          break;
        case 'q': case 'Q': case EOF:
-         return FALSE;         
+         return FALSE;
+      default : break;       
+       
    }
    return TRUE;
 }
