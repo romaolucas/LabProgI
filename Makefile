@@ -7,7 +7,8 @@ CFLAGS = -g -Wall -ansi -pedantic
 teste: teste.c Defesa.o Tiro.o general.o Nave.o Cenario.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 
-Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.h Nave.h
+Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.o general.h
+	
 	$(CC) -lm -c Cenario.c
 
 Defesa.o: Defesa.c Defesa.h general.h Tiro.h
