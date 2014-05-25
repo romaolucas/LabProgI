@@ -41,7 +41,7 @@ void freeListaDefesas();
 
 void createDefense();
 
-void update();
+int update();
 
 extern nodeTiro *tiroList;
 

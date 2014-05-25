@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 #include "Nave.h"
 #include "Tiro.h"
 #include "Cenario.h"
@@ -13,7 +14,7 @@ void initShip()
     ship->vidas = 3;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
-    ship->orientation = initPoint(0.0, 0.0, 0.0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0, 20.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
@@ -41,7 +42,7 @@ void reviveShip()
     ship->vidas -= 1;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
-    ship->orientation = initPoint(0.0, 0.0, 0.0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0, 20.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
@@ -63,20 +64,44 @@ void collisionsShip(){
    }
 }
 
-void updateShip()
+int updateShip()
 { 
-  collisionsShip();/*Checa colisão nave<=>tiro*/
+   int c;
+   Point *p, *q;
+   collisionsShip();/*Checa colisão nave<=>tiro*/
 
   /*movimenta nave de acordo com o que o usuario digitar
     * W, A, S, D controlam a direcao
     * U atirar
     * comandos para mudar a orientacao, talvez? por hora,
     * */
-   /*criar um role para movimentar os tiros pelo cenario,
-    * como vamos usar a orientacao do tiro?
-    * como vamos usar a orientacao da nave?
-    * */
-
+   c = getchar();
+   switch (c) {
+      case 'w': case 'W':
+         ship->position->y += sqrt(3)*ship->speed;
+         ship->orientation->y = ship->position->y;
+         break;
+      case 's': case 'S':
+         ship->position->y -= sqrt(3)*ship->speed;
+         ship->orientation->y = ship->position->y;
+         break;
+      case 'a': case 'A':
+         ship->position->x -= sqrt(3)*ship->speed;
+         ship->orientation->x = ship->position->x;
+         break;
+      case 'd': case 'D':
+         ship->position->x += sqrt(3)*ship->speed;
+         ship->orientation->x = ship->position->x;
+         break;
+      case 'u': case 'U':
+         p = initPoint(ship->position->x, ship->position->y, ship->position->z + 2*EPSILON);
+         q = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
+         includeTiro(initTiro(p, q, NORMAL));
+         break;
+       case 'q': case 'Q': case EOF:
+         return FALSE;         
+   }
+   return TRUE;
 }
 
 void freeShip()

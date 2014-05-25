@@ -30,7 +30,7 @@ void shipGotHit(int shotPower);
 
 void freeShip();
 
-void updateShip();
+int updateShip();
 
 extern Ship *ship;
 

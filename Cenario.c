@@ -124,11 +124,10 @@ void createDefense() {
    }
 }
 
-void update() {
+int update() {
+   int fim;
    Point *p;
    nodeDefense *d;
-   nodeDefense *a;
-   nodeTiro *at;
    nodeTiro *t;
 
    /*primeiramente, se nao tem mais vidas, game over, flag pra indicar que deve-se 
@@ -136,49 +135,42 @@ void update() {
    if (ship->vidas == 0) gameOver = TRUE;*/
 
    /*Atualiza nave (nova posicao, checa colisoes e atualiza hp se necessario) */
-   updateShip();
+   fim = updateShip();
 
    /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
-   at = tiroList;
-   t = at->next;
+   t = tiroList->next;
    while (t != NULL)
    {
      boolean out;
      out = updateTiro(t->tiro);
      /*Precisa fazer isso pra não estragar a lista ligada quando for tirar*/
      if (out){
-       at->next = t->next;
-       freeTiro(t->tiro);
-       free(t);
-       t = at->next;
+         nodeTiro *aux = t;
+         t = t->next;
+         freeTiro(aux->tiro);
+         free(aux);
      }
-     at = t;
-     if (t != NULL)
-       t = t->next;
+     else t = t->next;
    }
 
    /*loop para atualizar as defesas*/
-   a = defenseList;
-   d = a->next;
+   d = defenseList->next;
    while (d != NULL)
    {
      boolean test;
      test = updateDefesa(d->defense);
      if (test || isDefenseDestroyed(d->defense)){
-       a->next = d->next;
-       freeDefense(d->defense);
-       free(d);
-       d = a->next;
+       nodeDefense *aux = d;
+       d = d->next;
+       freeDefense(aux->defense);
+       free(aux);
      }
-     a = d;
-     if (d != NULL)
-       d = d->next;   
+     else d = d->next;   
    }
 
    /*Cria nova defesa, se necessário*/
    createDefense();
    /*A fazer - cria novo tiro, se necessário*/
-
- 
+   return fim;
 }
 
