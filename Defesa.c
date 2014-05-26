@@ -10,7 +10,7 @@ Defense *initDefense(Point *p, int hp, TIRO_TIPO shotType) {
    d = mallocSafe(sizeof(Defense));
    d->position = p;
    d->created = clock();
-   if (hp == 0) d->hp = DEFAULT_HP;
+   d->hp = DEFAULT_HP;
    if (shotType == NORMAL) {
      d->accuracy = DEFAULT_ACCURACY;
      d->shotPower = DEFAULT_POWER;
