@@ -9,19 +9,19 @@ teste: teste.c Defesa.o Tiro.o general.o Nave.o Cenario.o
 
 Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.o general.h
 	
-	$(CC) -lm -c Cenario.c
+	$(CC) -g -lm -c Cenario.c
 
 Defesa.o: Defesa.c Defesa.h general.h Nave.h Tiro.h Cenario.h
-	$(CC) -lm -c  Defesa.c
+	$(CC) -g -lm -c  Defesa.c
 
 Nave.o: Nave.c Nave.h general.h Tiro.h Cenario.h
-	$(CC) -lm -c Nave.c
+	$(CC) -g -lm -c Nave.c
 
 Tiro.o: Tiro.c Tiro.h general.h
-	$(CC) -lm -c Tiro.c
+	$(CC) -g -lm -c Tiro.c
 
-general.o:
-	$(CC)  general.c -c -o $@ -lm
+general.o: general.c general.h
+	$(CC)  -g -c general.c -lm
 
 clean:
 	rm -f *.o
