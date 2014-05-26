@@ -9,7 +9,7 @@
 nodeTiro *tiroList;
 static nodeDefense *defenseList;
 static boolean init = FALSE;
-static float maxDefense = 10;
+static float maxDefense = 0;
 static int N = 0;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
