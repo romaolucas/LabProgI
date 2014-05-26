@@ -46,6 +46,7 @@ void reviveShip()
 }
 
 void collisionsShip(){
+
    nodeTiro *t = tiroList->next;
    t = tiroList->next;
    while (t != NULL) {
@@ -75,8 +76,7 @@ int updateShip()
     * U atirar
     * comandos para mudar a orientacao, talvez? por hora,
     * */
-   printf("esperando aqui\n");
-   qts = scanf("%c", &c);
+   /*qts = scanf("%c", &c);
    switch (c) {
       case 'w': case 'W':
          ship->position->y += sqrt(3)*ship->speed;
@@ -102,7 +102,7 @@ int updateShip()
          return FALSE;
       default : break;       
        
-   }
+   }*/
    return TRUE;
 }
 

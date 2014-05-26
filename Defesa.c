@@ -34,16 +34,20 @@ void alterAttackPattern(Defense *d) {
 void collisionsDefense(Defense *d)
 {
    nodeTiro *t;
-   t = tiroList->next;
+   nodeTiro *at;
+   at = tiroList;
+   t = at->next;
    while (t != NULL) {
          if (collision(d->position, t->tiro->position)) {
             defenseGotHit(d, t->tiro->shotPower);
-            nodeTiro *aux = t;
-            t = t->next;
-            freeTiro(aux->tiro);
-            free(aux);
+            at->next = t->next;
+            freeTiro(t->tiro);
+            free(t);
+            t = at->next;
          }
-         else t = t->next;
+         at = t;
+         if (t != NULL)
+            t = t->next;
       }
    
 }

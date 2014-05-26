@@ -122,6 +122,8 @@ int update() {
    int fim;
    Point *p;
    nodeDefense *d;
+   nodeDefense *a;
+   nodeTiro *at;
    nodeTiro *t;
 
    /*primeiramente, se nao tem mais vidas, game over, flag pra indicar que deve-se 
@@ -132,34 +134,40 @@ int update() {
    fim = updateShip();
 
    /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
-   t = tiroList->next;
+   at = tiroList;
+   t = at->next;
    while (t != NULL)
    {
      boolean out;
      out = updateTiro(t->tiro);
      /*Precisa fazer isso pra não estragar a lista ligada quando for tirar*/
      if (out){
-         nodeTiro *aux = t;
-         t = t->next;
-         freeTiro(aux->tiro);
-         free(aux);
+         at->next = t->next;
+         freeTiro(t->tiro);
+         free(t);
+         t = at->next;
      }
-     else t = t->next;
+     at = t;
+     if (t != NULL)
+        t = t->next;
    }
 
    /*loop para atualizar as defesas*/
-   d = defenseList->next;
+   a = defenseList;
+   d = a->next;
    while (d != NULL)
    {
      boolean test;
      test = updateDefense(d->defense);
      if (test || isDefenseDestroyed(d->defense)){
-       nodeDefense *aux = d;
-       d = d->next;
-       freeDefense(aux->defense);
-       free(aux);
+        a->next = d->next;
+        freeDefense(d->defense);
+        free(d);
+        d = a->next;
      }
-     else d = d->next;   
+     a = d;
+     if (d != NULL)
+        d = d->next;   
    }
 
    /*Cria nova defesa, se necessário*/
