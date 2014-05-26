@@ -9,7 +9,7 @@
 nodeTiro *tiroList;
 static nodeDefense *defenseList;
 static boolean init = FALSE;
-static float maxDefense = 0;
+static float maxDefense = 10;
 static int N = 0;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
@@ -34,6 +34,7 @@ void includeDefense(Defense *d)
     corredor = corredor->next;
   /*corredor->next é null agora*/
   corredor->next = mallocSafe(sizeof(nodeDefense));
+  corredor->next->next = NULL;
   corredor->next->defense = d;
   N++;
 }
@@ -50,6 +51,7 @@ void includeTiro(Tiro *t)
     corredor = corredor->next;
   /*Corredor->next é null agora*/
   corredor->next = mallocSafe(sizeof(nodeTiro));
+  corredor->next->next = NULL;
   corredor->next->tiro = t;
 }
 
@@ -164,6 +166,8 @@ int update() {
         freeDefense(d->defense);
         free(d);
         d = a->next;
+        N--;
+        if (N < 0) N = 0;
      }
      a = d;
      if (d != NULL)

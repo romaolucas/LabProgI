@@ -7,20 +7,19 @@
 
 int main() {
    int gameRunning = TRUE;
+   clock_t start = clock();
+   int fps = 2;
+   double timestep = (double) 1 / fps;
    initShip();
    initCenario();
    /*a ideia eh usarmos algo com o timestep e sair quando o usuario
     * entrar com EOF ou com Q/<Insira uma letra de preferencia>*/
-
-   clock_t start = clock();
-   int fps = 2;
-   double timestep = (double) 1 / fps;
    while (gameRunning)
    { 
      clock_t now = clock();
      if (((double) (now - start)) >= timestep)
      {
-       update();
+       gameRunning = update();
        if (ship->vidas == 0) gameRunning = FALSE;
        imprimeCenario();
        start = now; 

@@ -9,7 +9,6 @@ double calcDistance(Point *a, Point *b)
 }
 
 int collision(Point *a, Point *b) {
-   printf("to aqui\n");
    if (calcDistance(a, b) <= EPSILON) return TRUE;
    return FALSE;
 }

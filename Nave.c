@@ -76,7 +76,7 @@ int updateShip()
     * U atirar
     * comandos para mudar a orientacao, talvez? por hora,
     * */
-   /*qts = scanf("%c", &c);
+   qts = scanf("%c", &c);
    switch (c) {
       case 'w': case 'W':
          ship->position->y += sqrt(3)*ship->speed;
@@ -102,7 +102,7 @@ int updateShip()
          return FALSE;
       default : break;       
        
-   }*/
+   }
    return TRUE;
 }
 
