@@ -57,7 +57,7 @@ void imprimeCenario() {
    nodeDefense *p = defenseList->next;
    nodeTiro *q = tiroList->next;
    Point *c;
-   printf("Nave na posicao (%4.2ff, %4.2f, %4.2f)", ship->position->x, ship->position->y, ship->position->z);
+   printf("Nave na posicao (%4.2f, %4.2f, %4.2f)\n", ship->position->x, ship->position->y, ship->position->z);
    while (p != NULL) {
       c = p->defense->position;
       printf("Posicao (%4.2f, %4.2f, %4.2f)\n hp: %d\n", c->x, c->y, c->z, p->defense->hp);
