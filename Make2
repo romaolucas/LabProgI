@@ -1,0 +1,9 @@
+CC = gcc
+CFLAGS = -lm -lGL -lglut -lGLU
+
+teste: teste.c
+	$(CC) $^ -o $@ $(CFLAGS)
+	./$@
+
+clean:
+	rm *.o
