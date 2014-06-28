@@ -113,8 +113,8 @@ void createDefense() {
    Point *p;
    if (N < (int) maxDefense) {
       p = mallocSafe(sizeof(Point));
-      p->x = RandomNumber(0.0, 500.0);
-      p->y = RandomNumber(0.0, 600.0);
+      p->x = RandomNumber(-MAX_X, MAX_X);
+      p->y = RandomNumber(-MAX_Y, MAX_Y);
       p->z = RandomNumber(ship->position->z, 1000.0 + ship->position->z);
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
