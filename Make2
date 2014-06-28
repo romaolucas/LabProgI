@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -lm -lGL -lglut -lGLU
 
-teste: teste.c
+glteste: glteste.c
 	$(CC) $^ -o $@ $(CFLAGS)
 	./$@
 
