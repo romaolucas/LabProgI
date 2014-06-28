@@ -29,7 +29,6 @@ boolean updateTiro(Tiro *t)
    t->position->x = t->orientation->x * t->velocity/norm;
    t->position->y = t->orientation->y * t->velocity/norm;
    t->position->z = ((t->orientation->z * t->velocity) - (double) DZ)/norm;
-   printf("P(%4.2f, %4.2f, %4.2f)\n", t->position->x, t->position->y, t->position->z);
    /*Nota: fabs == módulo da biblioteca math.h*/
    return (fabs(t->position->x) > MAX_X || fabs(t->position->y) > MAX_Y || t->position->z < 0);
 }

@@ -65,6 +65,11 @@ void imprimeCenario() {
       printf("Posicao (%4.2f, %4.2f, %4.2f)\n hp: %d\n", c->x, c->y, c->z, p->defense->hp);
       p = p->next;
    }
+   while (q != NULL) {
+      c = q->tiro->position;
+         printf("Tiro em (%4.2f, %4.2f, %4.2f)\n", c->x, c->y, c->z);
+      q = q->next;
+   }
 }
 
 void freeCenario()
