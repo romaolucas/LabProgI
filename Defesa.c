@@ -58,13 +58,13 @@ boolean updateDefense(Defense *d)
    clock_t instant;
    collisionsDefense(d);
    d->position->z -= (double) DZ;
-   if (d->position->z < 0) return TRUE;
+   if (d->position->z < -5.0) return TRUE;
    instant = clock();
    elapsed = (instant - d->created)/CLOCKS_PER_SEC *1000;
    if (elapsed % d->shotFrequency == 0) {
       Point *p = initPoint(d->position->x, d->position->y, d->position->z - 2*EPSILON); 
-      Point *q = initPoint(d->position->x , d->position->y,
-            d->position->z);
+      Point *q = initPoint(ship->position->x - d->position->x , ship->position->y - d->position->y,
+            ship->position->z - d->position->z);
       includeTiro(initTiro(p, q, NORMAL));
    }
    return FALSE;
@@ -72,7 +72,7 @@ boolean updateDefense(Defense *d)
 
 /*Não basta dar free em d, precisa librera a struct position também*/
 void freeDefense(Defense *d)
-{
+{ 
   if(d != NULL)
   {
     free(d->position);

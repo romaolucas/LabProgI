@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <time.h>
 #define EPSILON 0.042
-#define DZ 5
-#define MAX_X 900
-#define MAX_Y 900
+#define DZ 0.2
+#define MAX_X 10
+#define MAX_Y 20
 
 typedef struct
 {

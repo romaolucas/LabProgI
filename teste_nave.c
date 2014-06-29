@@ -59,7 +59,7 @@ int main(int argc, char **argv){
 void drawShip()
 {
   glPushMatrix();
-  glTranslatef(ship->position->x, ship->position->y, ship->position->z);
+  glTranslatef(ship->position->x, ship->position->y, ship->position->z); 
   glBegin(GL_TRIANGLES);
      glColor4f(0., 0., 1., 0.5);
      /*primeiro triângulo*/
@@ -137,7 +137,7 @@ void draw()
     glPushMatrix();
     glTranslatef(d->defense->position->x, d->defense->position->y, d->defense->position->z); 
     glBegin(GL_QUADS);              
-    {
+    {  
        glColor3f(0.0f, 0.8f, 0.0f);     
        glVertex3f( 0.8f, 0.8f, -0.8f);
        glVertex3f(-0.8f, 0.8f, -0.8f);
@@ -224,19 +224,19 @@ void keyb(unsigned char k, int x, int y) {
   switch(k) {
     case 'w':
     case 'W':
-      py += 0.5;
+      ship->position->y += 1.0;
       break;
     case 's':
     case 'S':
-      py -= 0.5;
+      ship->position->y -= 1.0;
       break;
     case 'a':
     case 'A':
-      px += 0.5;
+      ship->position->x += 1.0;
       break;
     case 'd':
     case 'D':
-      px -= 0.5;
+      ship->position->x -= 1.0;
       break;
     case 'q':
     case 'Q':

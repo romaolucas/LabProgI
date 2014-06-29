@@ -9,7 +9,7 @@
 nodeTiro *tiroList;
 nodeDefense *defenseList;
 static boolean init = FALSE;
-static float maxDefense = 10;
+static float maxDefense = 5;
 static int N = 0;
 
 /*Essas serão as cabeças, não vai ter nenhum tiro ou defesa associado a elas*/
@@ -116,11 +116,12 @@ void freeListaDefesas()
 
 void createDefense() {
    Point *p;
-   if (N < (int) maxDefense) {
+   double test = RandomNumber(0.0, 100.0);
+   if (N < (int) maxDefense && test > 95.0) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(-MAX_X, MAX_X);
-      p->y = RandomNumber(-MAX_Y, MAX_Y);
-      p->z = RandomNumber(ship->position->z, 1000.0 + ship->position->z);
+      p->y = RandomNumber(5.0, MAX_Y);
+      p->z = RandomNumber(10.0, 12.0);
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
 }
