@@ -24,7 +24,7 @@ double calcDistance(Point *a, Point *b);
 /*Inicializador de pontos*/
 Point *initPoint(double x, double y, double z);
 
-int collision(Point *a, Point *b);
+int collision(Point *a, float radA, Point *b, float radB);
 
 void *mallocSafe (size_t nbytes);
 

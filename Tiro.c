@@ -6,7 +6,7 @@ Descrição: aqui é tiro, porrada e bomba*/
 #include "general.h"
 #include "Tiro.h"
 
-Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType)
+Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType, SRC origem)
 {
   Tiro *t;
   t = mallocSafe(sizeof(Tiro));

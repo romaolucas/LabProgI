@@ -27,7 +27,7 @@ void shipShoot()
 {  
    Point *position = initPoint(ship->position->x, ship->position->y, ship->position->z + 2*EPSILON);
    Point *orientation = initPoint(ship->orientation->x, ship->orientation->y, ship->orientation->z);
-   includeTiro(initTiro(position, orientation, NORMAL));
+   includeTiro(initTiro(position, orientation, NORMAL, NAVE));
 }
 
 void shipGotHit(int dmg)
@@ -51,9 +51,7 @@ void collisionsShip(){
    t = tiroList->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
-      double radius = p->position->x*p->position->x + p->position->y*p->position->y;
-      printf("radius: %4.2f z: %4.2f\n", radius, p->position->z);
-      if ((p->position->z >= -20.0 && p->position->z <= -16.5) && radius <= 3.5) {
+      if (t->tiro->source == DEFESA && collision(t->tiro->position, 0.15, ship->position, 3.5)) {
          printf("colisao\n");
          shipGotHit(t->tiro->shotPower);
          nodeTiro *aux = t;

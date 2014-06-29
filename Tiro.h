@@ -7,6 +7,7 @@
 /*Outros tipos de tiro podem ser adicionados mais tarde*/
 typedef enum {NORMAL} TIRO_TIPO;
 
+typedef enum {NAVE, DEFESA} SRC;
 
 typedef struct
 {
@@ -14,10 +15,10 @@ typedef struct
   Point *orientation;
   int velocity;
   int shotPower;
-  
+  SRC source;
 } Tiro;
 
-Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType);
+Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType, SRC origem);
 
 void freeTiro(Tiro *t);
 

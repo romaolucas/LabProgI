@@ -38,7 +38,7 @@ void collisionsDefense(Defense *d)
    at = tiroList;
    t = at->next;
    while (t != NULL) {
-      if (collision(d->position, t->tiro->position)) {
+      if (t->tiro->source == NAVE && collision(d->position, 7.0, t->tiro->position, 0.15)) {
             defenseGotHit(d, t->tiro->shotPower);
             at->next = t->next;
             freeTiro(t->tiro);
@@ -49,7 +49,6 @@ void collisionsDefense(Defense *d)
          if (t != NULL)
             t = t->next;
       }
-   
 }
 
 boolean updateDefense(Defense *d)
@@ -62,7 +61,7 @@ boolean updateDefense(Defense *d)
       Point *p = initPoint(d->position->x, d->position->y - 1.1f, d->position->z - 1.0); 
       Point *q = initPoint(ship->position->x - d->position->x , ship->position->y - d->position->y,
             ship->position->z - d->position->z);
-      includeTiro(initTiro(p, q, NORMAL));
+      includeTiro(initTiro(p, q, NORMAL, DEFESA));
    }
    return FALSE;
 }

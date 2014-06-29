@@ -8,8 +8,9 @@ double calcDistance(Point *a, Point *b)
   return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2) + pow(a->z - b->z, 2));
 }
 
-int collision(Point *a, Point *b) {
-   if (calcDistance(a, b) <= EPSILON) return TRUE;
+int collision(Point *a, float radA, Point *b, float radB) {
+   if (calcDistance(a, b) <= (radA + radB)) return TRUE;
+   printf("%4.2f\n", calcDistance(a, b));
    return FALSE;
 }
 
