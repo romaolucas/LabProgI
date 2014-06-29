@@ -59,7 +59,7 @@ int main(int argc, char **argv){
 void drawShip()
 {
   glPushMatrix();
-  glTranslatef(px, py, pz);
+  glTranslatef(ship->position->x, ship->position->y, ship->position->z);
   glBegin(GL_TRIANGLES);
      glColor4f(0., 0., 1., 0.5);
      /*primeiro triângulo*/
