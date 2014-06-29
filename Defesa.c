@@ -38,7 +38,7 @@ void collisionsDefense(Defense *d)
    at = tiroList;
    t = at->next;
    while (t != NULL) {
-         if (collision(d->position, t->tiro->position)) {
+      if (collision(d->position, t->tiro->position)) {
             defenseGotHit(d, t->tiro->shotPower);
             at->next = t->next;
             freeTiro(t->tiro);
@@ -63,8 +63,8 @@ boolean updateDefense(Defense *d)
    elapsed = (instant - d->created)/CLOCKS_PER_SEC *1000;
    if (elapsed % d->shotFrequency == 0) {
       Point *p = initPoint(d->position->x, d->position->y, d->position->z - 2*EPSILON); 
-      Point *q = initPoint(ship->position->x - d->position->x, ship->position->y - d->position->y,
-            ship->position->z - d->position->z);
+      Point *q = initPoint(d->position->x , d->position->y,
+            d->position->z);
       includeTiro(initTiro(p, q, NORMAL));
    }
    return FALSE;

@@ -134,6 +134,7 @@ void draw()
   glShadeModel(GL_SMOOTH);
   for (d = defenseList->next; d != NULL; d = d->next)
   { 
+    glPushMatrix();
     glTranslatef(d->defense->position->x, d->defense->position->y, d->defense->position->z); 
     glBegin(GL_QUADS);              
     {
@@ -178,7 +179,8 @@ void draw()
        glVertex3f(0.8f, -3.0f,  0.8f);
        glVertex3f(0.8f, -3.0f, -0.8f);
     } 
-    glEnd();  
+    glEnd();
+    glPopMatrix();
   }
 
   glColor3f(0.0f, 0.0f, 0.0f); 
@@ -213,9 +215,8 @@ void computeLocation() {
 
 }
 void timeStep(int n){
-  gameRunning = update();
-   printf("loop no timestep\n");
   glutTimerFunc(100, timeStep, 1);
+  gameRunning = update();
   glutPostRedisplay();
 }
 

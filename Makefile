@@ -5,7 +5,7 @@ CFLAGS = -lGL -lglut -lGLU -g -Wall -ansi -pedantic
 #	$(CC) $(CFLAGS) $^ -lm -o $@
 
 teste_nave: teste_nave.c Defesa.o Tiro.o general.o Nave.o Cenario.o
-	$(CC) $(CFLAGS) $^ -o $@ -lm
+	$(CC) $^ -o $@ -lm  $(CFLAGS) 
 
 Cenario.o: Cenario.c Cenario.h Defesa.h Tiro.h general.o general.h
 	
