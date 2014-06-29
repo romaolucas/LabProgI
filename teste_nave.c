@@ -201,7 +201,7 @@ void draw()
    }
 
   glPushMatrix();
-  glRotatef(user_angle, 0, 1, 0);
+  glRotatef(user_angle, 0, 0, 1);
   drawShip();
   glPopMatrix();
   glPushMatrix();
@@ -289,3 +289,4 @@ void skeyb(int k, int x, int y) {
          break;
    }
 }
+
