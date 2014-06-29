@@ -2,9 +2,9 @@
 #define NAVE_H_INCLUDED
 
 #define INITIAL_HP 100
-#define INITIAL_SPEED 10
+#define INITIAL_SPEED 1.0
 #define INITIAL_HEIGHT 0.0
-#define INITIAL_SPOS 20.0
+#define INITIAL_SPOS 0.0
 #define INITIAL_HPOS 0.0
 
 #include "general.h"

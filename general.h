@@ -5,8 +5,8 @@
 #include <time.h>
 #define EPSILON 0.042
 #define DZ 5
-#define MAX_X 600
-#define MAX_Y 500
+#define MAX_X 900
+#define MAX_Y 900
 
 typedef struct
 {
