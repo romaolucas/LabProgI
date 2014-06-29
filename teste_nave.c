@@ -7,9 +7,15 @@
 #include "Defesa.h"
 #include "Tiro.h"
 #define PI 3.1415
+#define true 1
+#define false 0
 
-double user_angle = 0;
-/*coordenadas da nave*/
+/*inclinação da nave*/
+double z_angle = 0;
+double x_angle = 0;
+/*array de keyboard*/
+int keyboard[256];
+/*coordenadas da nave - desativado*/
 double px = 0;
 double py = 0;
 double pz = 0;
@@ -34,9 +40,20 @@ void timeStep(int n);
 
 /*Funções de teclado*/
 
-void keyb(unsigned char k, int x, int y);
+void keydown(unsigned char k, int x, int y);
+
+void keyup(unsigned char k, int x, int y);
 
 void skeyb(int k, int x, int y);
+
+/*Recebe informação da tabela de keys*/
+void updateKeyboard();
+
+/*funções auxiliares/matemáticas*/
+double fmin(double one, double two);
+
+double fmax(double one, double two);
+
 
 int main(int argc, char **argv){
 
@@ -50,17 +67,20 @@ int main(int argc, char **argv){
   
   glutDisplayFunc(draw);
   glutTimerFunc(100, timeStep, 1);
-  glutKeyboardFunc(keyb);
   glutSpecialFunc(skeyb);
+  glutIgnoreKeyRepeat(true);
+  glutKeyboardFunc(keydown);
+  glutKeyboardUpFunc(keyup);
   glutMainLoop();
-  return 0;
-   
+  return 0;   
 }
 
 void drawShip()
 {
   glPushMatrix();
   glTranslatef(ship->position->x, ship->position->y, ship->position->z); 
+  glRotatef(z_angle, 0, 0, 1);
+  glRotatef(x_angle, 1, 0, 0);
   glBegin(GL_TRIANGLES);
      glColor4f(0., 0., 1., 0.5);
      /*primeiro triângulo*/
@@ -87,8 +107,7 @@ void drawShip()
      glVertex3f(-cst_l, cst_x * cos(2 * PI/3), cst_L - 1.4);
      glVertex3f(cst_l, cst_x * cos(2 * PI/3), 0);
      glVertex3f(cst_L + 0.5, cst_x + 0.5, 0);
-     glVertex3f(cst_l, cst_x * cos(2 * PI/3), cst_L - 1.4);
-  
+     glVertex3f(cst_l, cst_x * cos(2 * PI/3), cst_L - 1.4); 
   glEnd();
   glPopMatrix();
 }
@@ -199,11 +218,7 @@ void draw()
     glutSolidSphere(0.15, 60, 60);
     glPopMatrix();
    }
-
-  glPushMatrix();
-  glRotatef(user_angle, 0, 0, 1);
   drawShip();
-  glPopMatrix();
   glPushMatrix();
   glTranslatef(ship->orientation->x, ship->orientation->y, 0.0);
   glColor3f(0.0, 1.0, 0.0);
@@ -240,37 +255,46 @@ void computeLocation() {
 void timeStep(int n){
   glutTimerFunc(100, timeStep, 1);
   gameRunning = update();
+  updateKeyboard();
   glutPostRedisplay();
 }
 
-void keyb(unsigned char k, int x, int y) {
-  switch(k) {
-    case 'w':
-    case 'W':
-      ship->position->y += 1.0;
-      break;
-    case 's':
-    case 'S':
-      ship->position->y -= 1.0;
-      break;
-    case 'a':
-    case 'A':
-      ship->position->x += 1.0;
-      break;
-    case 'd':
-    case 'D':
-      ship->position->x -= 1.0;
-      break;
-    case 'q':
-    case 'Q':
-      user_angle += 0.93;
-      break;
-    case 'e':
-    case 'E':
-      user_angle -= 0.93;
-      break;
+void keydown(unsigned char k, int x, int y) {
+  keyboard[k] = true;
+}
+
+void keyup(unsigned char k, int x, int y)
+{
+  keyboard[k] = false;
+  if (k == 'a' || k == 'A' || k == 'd' || k == 'D')
+    z_angle = 0;
+  if (k == 'w' || k == 'W' || k == 's' || k == 'S')
+    x_angle = 0;
+
+}
+
+void updateKeyboard()
+{
+  if (keyboard['w'] || keyboard['W'])
+  {
+    ship->position->y += 1;
+    x_angle = fmax(-21, x_angle - 4);
   }
-  glutPostRedisplay();
+  if (keyboard['s'] || keyboard['S'])
+  {
+    ship->position->y -= 1;
+    x_angle = fmin(21, x_angle + 4);
+  }
+  if (keyboard['a'] || keyboard['A'])
+  {
+    ship->position->x +=1;
+    z_angle = fmax(-35, z_angle - 5);
+  }
+  if (keyboard['d'] || keyboard['D'])
+  {
+    ship->position->x -= 1;
+    z_angle = fmin(35, z_angle + 5);
+  }
 }
 
 void skeyb(int k, int x, int y) {
@@ -290,3 +314,10 @@ void skeyb(int k, int x, int y) {
    }
 }
 
+double fmin(double one, double two){
+  return one > two ? two : one;
+}
+
+double fmax(double one, double two){
+  return one > two ? one : two;
+}
