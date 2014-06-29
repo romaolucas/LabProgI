@@ -10,7 +10,6 @@ double calcDistance(Point *a, Point *b)
 
 int collision(Point *a, float radA, Point *b, float radB) {
    if (calcDistance(a, b) <= (radA + radB)) return TRUE;
-   printf("%4.2f\n", calcDistance(a, b));
    return FALSE;
 }
 

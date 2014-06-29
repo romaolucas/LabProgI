@@ -70,7 +70,6 @@ int main(int argc, char **argv){
   
   glutDisplayFunc(draw);
   glutTimerFunc(100, timeStep, 1);
-  glutSpecialFunc(skeyb);
   glutIgnoreKeyRepeat(true);
   glutKeyboardFunc(keydown);
   glutKeyboardUpFunc(keyup);
@@ -233,7 +232,7 @@ void draw()
    }
   drawShip();
   glPushMatrix();
-  glTranslatef(ship->orientation->x, ship->orientation->y, 0.0);
+  glTranslatef(ship->orientation->x, ship->orientation->y, -.5);
   glColor3f(0.0, 1.0, 0.0);
   glBegin(GL_LINE_LOOP);
   glVertex3f(-0.5, 1.0, 0.0);
@@ -241,6 +240,9 @@ void draw()
   glVertex3f(1.5, 3.0, 0.0);
   glVertex3f(1.5, 1.0, 0.0);
   glEnd();
+  glPopMatrix();
+  glPushMatrix();
+  glTranslatef(ship->orientation->x, ship->orientation->y, 0.0);
   glBegin(GL_LINE_LOOP);
   glVertex3f(0.0, 1.3, 0.0);
   glVertex3f(0.0, 2.6, 0.0);
@@ -314,25 +316,16 @@ void updateKeyboard()
      forceField = TRUE;
      beginFF = glutGet(GLUT_ELAPSED_TIME);
   }
+  if (keyboard['u'] || keyboard['U'])
+      shipShoot();
+
+  if (keyboard['q'] || keyboard['Q']) {
+     freeCenario();
+     exit(EXIT_SUCCESS);
+  }
+
   ship->orientation->y = ship->position->y + sin(x_angle);
   ship->orientation->x = ship->position->x;
-}
-
-void skeyb(int k, int x, int y) {
-   switch(k) {
-      case GLUT_KEY_UP:
-         ship->orientation->y += 1.0;
-         break;
-      case GLUT_KEY_DOWN:
-         ship->orientation->y -= 1.0;
-         break;
-      case GLUT_KEY_LEFT:
-         ship->orientation->x += 1.0;
-         break;
-      case GLUT_KEY_RIGHT:
-         ship->orientation->x -= 1.0;
-         break;
-   }
 }
 
 double fmin(double one, double two){
