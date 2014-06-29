@@ -13,6 +13,10 @@
 /*inclinação da nave*/
 double z_angle = 0;
 double x_angle = 0;
+
+int forceField = FALSE;
+int beginFF;
+
 /*array de keyboard*/
 int keyboard[256];
 /*coordenadas da nave - desativado*/
@@ -109,6 +113,16 @@ void drawShip()
      glVertex3f(cst_l, cst_x * cos(2 * PI/3), cst_L - 1.4); 
   glEnd();
   glPopMatrix();
+  if (forceField) {
+   glPushMatrix();
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   glEnable( GL_BLEND );
+   glColor4f(0, 0, 1.0, 0.1);
+   glTranslatef(ship->position->x, ship->position->y, ship->position->z);
+   glutSolidSphere(3.5, 100, 100); 
+   glPopMatrix();
+   glDisable(GL_BLEND);
+  }
 }
 
 void init() {
@@ -251,10 +265,13 @@ void computeLocation() {
             0.0, 1.0, 0.);
 
 }
+
 void timeStep(int n){
   glutTimerFunc(100, timeStep, 1);
   gameRunning = update();
   updateKeyboard();
+  if ((glutGet(GLUT_ELAPSED_TIME) - beginFF) >= 1000)
+     forceField = FALSE;
   glutPostRedisplay();
 }
 
@@ -269,7 +286,6 @@ void keyup(unsigned char k, int x, int y)
     z_angle = 0;
   if (k == 'w' || k == 'W' || k == 's' || k == 'S')
     x_angle = 0;
-
 }
 
 void updateKeyboard()
@@ -293,6 +309,10 @@ void updateKeyboard()
   {
     ship->position->x -= 1;
     z_angle = fmin(35, z_angle + 5);
+  }
+  if (keyboard['e'] || keyboard['E']) {
+     forceField = TRUE;
+     beginFF = glutGet(GLUT_ELAPSED_TIME);
   }
   ship->orientation->y = ship->position->y + sin(x_angle);
   ship->orientation->x = ship->position->x;

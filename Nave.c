@@ -14,7 +14,7 @@ void initShip()
     ship->vidas = 3;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
-    ship->orientation = initPoint(0.0, 0.0, 1.0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0, 20.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
@@ -41,7 +41,7 @@ void reviveShip()
     ship->vidas -= 1;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
-    ship->orientation = initPoint(0.0, 0.0,1.0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0,20.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
@@ -51,7 +51,10 @@ void collisionsShip(){
    t = tiroList->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
-      if (collision(ship->position, t->tiro->position)) {
+      double radius = p->position->x*p->position->x + p->position->y*p->position->y;
+      printf("radius: %4.2f z: %4.2f\n", radius, p->position->z);
+      if ((p->position->z >= -20.0 && p->position->z <= -16.5) && radius <= 3.5) {
+         printf("colisao\n");
          shipGotHit(t->tiro->shotPower);
          nodeTiro *aux = t;
          t = t->next;
