@@ -4,6 +4,9 @@ CFLAGS = -lGL -lglut -lGLU -g -Wall -ansi -pedantic
 #teste_ponto: general.o teste.o Defesa.o Tiro.o
 #	$(CC) $(CFLAGS) $^ -lm -o $@
 
+run: teste_nave
+	./$^
+
 teste_nave: teste_nave.c Defesa.o Tiro.o general.o Nave.o Cenario.o
 	$(CC) $^ -o $@ -lm  $(CFLAGS) 
 
