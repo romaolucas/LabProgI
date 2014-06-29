@@ -46,20 +46,25 @@ void reviveShip()
 }
 
 void collisionsShip(){
-
-   nodeTiro *t = tiroList->next;
-   t = tiroList->next;
+   nodeTiro *at = tiroList;
+   nodeTiro *t = at->next;
    while (t != NULL) {
       /*criar um campo position para a nave*/
       if (t->tiro->source == DEFESA && collision(t->tiro->position, 0.15, ship->position, 3.5)) {
          printf("colisao\n");
          shipGotHit(t->tiro->shotPower);
-         nodeTiro *aux = t;
-         t = t->next;
-         freeTiro(aux->tiro);
-         free(aux);
+         at->next = t->next; 
+         freeTiro(t->tiro);
+         free(t);
+         t = at->next;
+         at = t;
+         if (t != NULL) t = t->next;
       }
-      else t = t->next;
+      else { 
+         at = t;
+         if (t != NULL) t = t->next;
+      }
+
       if (isShipDestroyed()) reviveShip();
 
    }
