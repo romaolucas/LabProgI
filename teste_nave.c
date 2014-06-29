@@ -54,7 +54,6 @@ double fmin(double one, double two);
 
 double fmax(double one, double two);
 
-
 int main(int argc, char **argv){
 
   initShip();
@@ -295,6 +294,8 @@ void updateKeyboard()
     ship->position->x -= 1;
     z_angle = fmin(35, z_angle + 5);
   }
+  ship->orientation->y = ship->position->y + sin(x_angle);
+  ship->orientation->x = ship->position->x;
 }
 
 void skeyb(int k, int x, int y) {
