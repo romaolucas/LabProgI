@@ -54,15 +54,12 @@ void collisionsDefense(Defense *d)
 
 boolean updateDefense(Defense *d)
 { 
-   int elapsed;
-   clock_t instant;
    collisionsDefense(d);
-   d->position->z -= (double) DZ;
-   if (d->position->z < -5.0) return TRUE;
-   instant = clock();
-   elapsed = (instant - d->created)/CLOCKS_PER_SEC *1000;
-   if (elapsed % d->shotFrequency == 0) {
-      Point *p = initPoint(d->position->x, d->position->y, d->position->z - 2*EPSILON); 
+   d->position->z -= (double) DZ; 
+   if (d->position->z < Z_ORIGIN) return TRUE;
+   double shootChance = RandomNumber(0.0, 100.0);
+   if (shootChance > 97.0) {
+      Point *p = initPoint(d->position->x, d->position->y - 1.1f, d->position->z - 1.0); 
       Point *q = initPoint(ship->position->x - d->position->x , ship->position->y - d->position->y,
             ship->position->z - d->position->z);
       includeTiro(initTiro(p, q, NORMAL));

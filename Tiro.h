@@ -3,7 +3,7 @@
 #include "general.h" /*Pegar struct point*/
 
 #define DEFAULT_DMG 2
-#define DEFAULT_VELO 5
+#define DEFAULT_VELO 2
 /*Outros tipos de tiro podem ser adicionados mais tarde*/
 typedef enum {NORMAL} TIRO_TIPO;
 

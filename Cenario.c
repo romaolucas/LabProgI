@@ -116,8 +116,8 @@ void freeListaDefesas()
 
 void createDefense() {
    Point *p;
-   double test = RandomNumber(0.0, 100.0);
-   if (N < (int) maxDefense && test > 95.0) {
+   double spawnChance = RandomNumber(0.0, 100.0);
+   if (N < (int) maxDefense && spawnChance > 95.0) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(-MAX_X, MAX_X);
       p->y = RandomNumber(5.0, MAX_Y);

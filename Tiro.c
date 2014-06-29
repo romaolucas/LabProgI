@@ -22,15 +22,12 @@ Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType)
 
 boolean updateTiro(Tiro *t)
 {
-  /*Tem que ter cuidado quando for definir t->orientation.
-  Ele tem que ter norma 1*/
-   double norm = sqrt(t->orientation->x*t->orientation->x + t->orientation->y*t->orientation->y + t->orientation->z
-         *t->orientation->z);
-   t->position->x = t->orientation->x * t->velocity/norm;
-   t->position->y = t->orientation->y * t->velocity/norm;
-   t->position->z = ((t->orientation->z * t->velocity) - (double) DZ)/norm;
+   double alpha = 0.04;
+   t->position->x += t->orientation->x*alpha;
+   t->position->y += t->orientation->y*alpha;
+   t->position->z -= (double) t->velocity * DZ;
    /*Nota: fabs == módulo da biblioteca math.h*/
-   return (fabs(t->position->x) > MAX_X || fabs(t->position->y) > MAX_Y || t->position->z < 0);
+   return (fabs(t->position->x) > MAX_X || fabs(t->position->y) > MAX_Y || t->position->z < Z_ORIGIN);
 }
 
 

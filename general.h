@@ -7,6 +7,7 @@
 #define DZ 0.2
 #define MAX_X 10
 #define MAX_Y 20
+#define Z_ORIGIN -20.0
 
 typedef struct
 {

@@ -40,7 +40,6 @@ int main(int argc, char **argv){
 
   initShip();
   initCenario();
-  printf("cenario ok\n");
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
   glutInitWindowSize(900, 900); 
@@ -50,7 +49,6 @@ int main(int argc, char **argv){
   glutDisplayFunc(draw);
   glutTimerFunc(100, timeStep, 1);
   glutKeyboardFunc(keyb);
-  printf("glut ok... entrando no mainloop\n");
   glutMainLoop();
   return 0;
    
@@ -93,9 +91,9 @@ void drawShip()
 }
 
 void init() {
-  GLfloat sun_direction[] = { 0.0, 2.0, -1.0, 1.0 };
-  GLfloat sun_intensity[] = { 0.7, 0.7, 0.7, 1.0 };
-  GLfloat ambient_intensity[] = { 0.3, 0.3, 0.3, 1.0 };
+  GLfloat sun_direction[] = { 0.0, 2.0, 10.0, 1.0 };
+  GLfloat sun_intensity[] = { 1.0, 1.0, 1.0, 1.0 };
+  GLfloat ambient_intensity[] = { 0.5, 0.5, 0.5, 1.0 };
 
   glClearColor(1.0, 1.0, 1.0, 0.0);   
   computeLocation();
@@ -138,44 +136,50 @@ void draw()
     glTranslatef(d->defense->position->x, d->defense->position->y, d->defense->position->z); 
     glBegin(GL_QUADS);              
     {  
-       glColor3f(0.0f, 0.8f, 0.0f);     
+       glColor3f(0.0f, 0.4f, 0.0f);     
        glVertex3f( 0.8f, 0.8f, -0.8f);
        glVertex3f(-0.8f, 0.8f, -0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(-0.8f, 0.8f,  0.8f);
        glVertex3f( 0.8f, 0.8f,  0.8f);
  
        /*Bottom face (y = -0.8f)*/
-       glColor3f(0.0f, 0.8f, 0.0f);     
+       glColor3f(0.0f, 0.4f, 0.0f);     
        glVertex3f( 0.8f, -3.0f,  0.8f);
        glVertex3f(-0.8f, -3.0f,  0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(-0.8f, -3.0f, -0.8f);
        glVertex3f( 0.8f, -3.0f, -0.8f);
  
        /* Front face  (z = 0.8f)*/
-       glColor3f(1.0f, 0.0f, 0.0f);     
+       glColor3f(0.4f, 0.0f, 0.0f);     
        glVertex3f( 0.8f,  0.8f, 0.8f);
        glVertex3f(-0.8f,  0.8f, 0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(-0.8f, -3.0f, 0.8f);
        glVertex3f( 0.8f, -3.0f, 0.8f);
  
        /* Back face (z = -0.8f)*/
-       glColor3f(1.0f, 0.0f, 0.0f);     
+       glColor3f(0.4f, 0.0f, 0.0f);     
        glVertex3f( 0.8f, -3.0f, -0.8f);
        glVertex3f(-0.8f, -3.0f, -0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(-0.8f,  0.8f, -0.8f);
        glVertex3f( 0.8f,  0.8f, -0.8f);
  
        /* Left face (x = -0.8f)*/
-       glColor3f(1.0f, 0.0f, 0.0f);     
+       glColor3f(0.4f, 0.0f, 0.0f);     
        glVertex3f(-0.8f,  0.8f,  0.8f);
        glVertex3f(-0.8f,  0.8f, -0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(-0.8f, -3.0f, -0.8f);
        glVertex3f(-0.8f, -3.0f,  0.8f);
   
        /* Right face (x = 0.8f)*/
-       glColor3f(0.0f, 0.8f, 0.0f);     
+       glColor3f(0.0f, 0.4f, 0.0f);     
        glVertex3f(0.8f,  0.8f, -0.8f);
        glVertex3f(0.8f,  0.8f,  0.8f);
+       glColor3f(0.3f, 0.3f, 0.3f);
        glVertex3f(0.8f, -3.0f,  0.8f);
        glVertex3f(0.8f, -3.0f, -0.8f);
     } 
@@ -183,13 +187,13 @@ void draw()
     glPopMatrix();
   }
 
-  glColor3f(0.0f, 0.0f, 0.0f); 
+
   for (t = tiroList->next; t != NULL; t = t->next) 
   { 
     glPushMatrix(); 
     glTranslatef(t->tiro->position->x, t->tiro->position->y, t->tiro->position->z); 
-    glColor4f(1.0, 0, 0, 1.0);
-    glutSolidSphere(0.2, 40, 40);
+    glColor3f(0.0f, 0.0f, 0.0f); 
+    glutSolidSphere(0.15, 40, 40);
     glPopMatrix();
    }
 
