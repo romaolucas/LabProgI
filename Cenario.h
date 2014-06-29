@@ -44,5 +44,6 @@ void createDefense();
 int update();
 
 extern nodeTiro *tiroList;
+extern nodeDefense *defenseList;
 
 #endif

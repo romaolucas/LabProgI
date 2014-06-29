@@ -66,43 +66,9 @@ void collisionsShip(){
 
 int updateShip()
 { 
-   int qts;
-   char c;
    Point *p, *q;
    collisionsShip();/*Checa colisão nave<=>tiro*/
 
-  /*movimenta nave de acordo com o que o usuario digitar
-    * W, A, S, D controlam a direcao
-    * U atirar
-    * comandos para mudar a orientacao, talvez? por hora,
-    * */
-   qts = scanf("%c", &c);
-   switch (c) {
-      case 'w': case 'W':
-         ship->position->y += sqrt(3)*ship->speed;
-         ship->orientation->y = ship->position->y;
-         break;
-      case 's': case 'S':
-         ship->position->y -= sqrt(3)*ship->speed;
-         ship->orientation->y = ship->position->y;
-         break;
-      case 'a': case 'A':
-         ship->position->x -= sqrt(3)*ship->speed;
-         ship->orientation->x = ship->position->x;
-         break;
-      case 'd': case 'D':
-         ship->position->x += sqrt(3)*ship->speed;
-         ship->orientation->x = ship->position->x;
-         break;
-      case 'u': case 'U':
-         shipShoot();
-         printf("Tiro disparado");
-         break;
-       case 'q': case 'Q': case EOF:
-         return FALSE;
-      default : break;       
-       
-   }
    return TRUE;
 }
 

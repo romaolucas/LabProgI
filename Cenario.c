@@ -7,7 +7,7 @@
 #include "Nave.h"
 
 nodeTiro *tiroList;
-static nodeDefense *defenseList;
+nodeDefense *defenseList;
 static boolean init = FALSE;
 static float maxDefense = 10;
 static int N = 0;
@@ -139,7 +139,6 @@ int update() {
 
    /*Atualiza nave (nova posicao, checa colisoes e atualiza hp se necessario) */
    fim = updateShip();
-
    /*Atualiza posições. Essas funções estão em Tiro.c, Defesa.c, Nave.c*/
    at = tiroList;
    t = at->next;
