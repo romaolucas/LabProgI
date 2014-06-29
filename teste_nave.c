@@ -36,6 +36,8 @@ void timeStep(int n);
 
 void keyb(unsigned char k, int x, int y);
 
+void skeyb(int k, int x, int y);
+
 int main(int argc, char **argv){
 
   initShip();
@@ -49,6 +51,7 @@ int main(int argc, char **argv){
   glutDisplayFunc(draw);
   glutTimerFunc(100, timeStep, 1);
   glutKeyboardFunc(keyb);
+  glutSpecialFunc(skeyb);
   glutMainLoop();
   return 0;
    
@@ -189,17 +192,33 @@ void draw()
 
 
   for (t = tiroList->next; t != NULL; t = t->next) 
-  { 
+   { 
     glPushMatrix(); 
     glTranslatef(t->tiro->position->x, t->tiro->position->y, t->tiro->position->z); 
     glColor3f(0.0f, 0.0f, 0.0f); 
-    glutSolidSphere(0.15, 40, 40);
+    glutSolidSphere(0.15, 60, 60);
     glPopMatrix();
    }
 
   glPushMatrix();
   glRotatef(user_angle, 0, 1, 0);
   drawShip();
+  glPopMatrix();
+  glPushMatrix();
+  glTranslatef(ship->orientation->x, ship->orientation->y, 0.0);
+  glColor3f(0.0, 1.0, 0.0);
+  glBegin(GL_LINE_LOOP);
+  glVertex3f(-0.5, 1.0, 0.0);
+  glVertex3f(-0.5, 3.0, 0.0);
+  glVertex3f(1.5, 3.0, 0.0);
+  glVertex3f(1.5, 1.0, 0.0);
+  glEnd();
+  glBegin(GL_LINE_LOOP);
+  glVertex3f(0.0, 1.3, 0.0);
+  glVertex3f(0.0, 2.6, 0.0);
+  glVertex3f(1.0, 2.6, 0.0);
+  glVertex3f(1.0, 1.3, 0.0);
+  glEnd();
   glPopMatrix();
   glutSwapBuffers();
   glFlush();
@@ -252,4 +271,21 @@ void keyb(unsigned char k, int x, int y) {
       break;
   }
   glutPostRedisplay();
+}
+
+void skeyb(int k, int x, int y) {
+   switch(k) {
+      case GLUT_KEY_UP:
+         ship->orientation->y += 1.0;
+         break;
+      case GLUT_KEY_DOWN:
+         ship->orientation->y -= 1.0;
+         break;
+      case GLUT_KEY_LEFT:
+         ship->orientation->x += 1.0;
+         break;
+      case GLUT_KEY_RIGHT:
+         ship->orientation->x -= 1.0;
+         break;
+   }
 }
