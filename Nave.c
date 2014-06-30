@@ -4,6 +4,7 @@
 #include "Tiro.h"
 #include "Cenario.h"
 #include "general.h"
+#include "teste_nave.h"
 
 Ship *ship;
 
@@ -53,7 +54,7 @@ void collisionsShip(){
       /*criar um campo position para a nave*/
       if (t->tiro->source == DEFESA && collision(t->tiro->position, 0.15, ship->position, 3.5)) {
          printf("colisao\n");
-         shipGotHit(t->tiro->shotPower);
+         if (!forceField) shipGotHit(t->tiro->shotPower);
          at->next = t->next; 
          freeTiro(t->tiro);
          free(t);
