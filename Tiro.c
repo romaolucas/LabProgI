@@ -28,7 +28,7 @@ boolean updateTiro(Tiro *t)
    t->position->y += t->orientation->y*alpha;
    t->position->z += (double) t->velocity * DZ * t->orientation->z > 0 ? 1 : -1;
    /*Nota: fabs == módulo da biblioteca math.h*/
-   return (fabs(t->position->x) > MAX_X || fabs(t->position->y) > MAX_Y || t->position->z < Z_ORIGIN || t->position->z > MAX_Z);
+   return (fabs(t->position->x) > 30 || fabs(t->position->y) > 30 || t->position->z < Z_ORIGIN-10 || t->position->z > MAX_Z);
 }
 
 

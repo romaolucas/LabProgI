@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <time.h>
 #define EPSILON 0.042
-#define DZ 0.2
-#define MAX_X 10
-#define MAX_Y 20
+#define DZ 0.4
+#define MAX_X 6
+#define MAX_Y 15
 #define MAX_Z 25
-#define Z_ORIGIN -35.0
+#define Z_ORIGIN -25.0
 
 typedef struct
 {

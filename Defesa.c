@@ -20,6 +20,8 @@ Defense *initDefense(Point *p, int hp, TIRO_TIPO shotType) {
 }
 
 int isDefenseDestroyed(Defense *d) {
+   if (d->hp <= 0)
+   ship->score += 10; 
    return d->hp <= 0;
 }
 

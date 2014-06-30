@@ -120,8 +120,8 @@ void createDefense() {
    if (N < (int) maxDefense && spawnChance > 95.0) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(-MAX_X, MAX_X);
-      p->y = RandomNumber(5.0, MAX_Y);
-      p->z = RandomNumber(10.0, 12.0);
+      p->y = RandomNumber(10, MAX_Y);
+      p->z = 15.0;
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
 }
@@ -167,7 +167,6 @@ int update() {
      boolean test;
      test = updateDefense(d->defense);
      if (test || isDefenseDestroyed(d->defense)){
-        ship->score += 10;
         a->next = d->next;
         freeDefense(d->defense);
         free(d);
