@@ -21,7 +21,7 @@ int beginFF;
 
 /*variaveis para indicar o status do jogo*/
 char jogador[200];
-char pontuacao[200];
+
 
 /*array de keyboard*/
 int keyboard[256];
@@ -178,13 +178,13 @@ void draw()
   glBegin(GL_QUADS);
   {
     glVertex3f( 21., 26.,  -19);
-    glVertex3f( 9., 26.,  -19);
-    glVertex3f( 9., 23.,  -19);
+    glVertex3f( 5.5, 26.,  -19);
+    glVertex3f( 5.5, 23.,  -19);
     glVertex3f( 21., 23.,  -19);
   }
   glEnd();
   glColor3f(0.0, 0.0, 0.0);
-  sprintf(jogador, "HP: %d    Vidas: %d", ship->hp, ship->vidas);
+  sprintf(jogador, "HP: %d    Vidas: %d Pontos: %d", ship->hp, ship->vidas, ship->score);
   glRasterPos3f(16., 23.,-20);
   glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, jogador);
 
