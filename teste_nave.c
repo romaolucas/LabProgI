@@ -97,7 +97,7 @@ void drawShip()
 }
 
 void init() {
-  GLfloat sun_direction[] = { 0.0, 2.0, 10.0, 1.0 };
+  GLfloat sun_direction[] = { 0.0, 0.0, 0.0, 0.0 };
   GLfloat sun_intensity[] = { 1.0, 1.0, 1.0, 1.0 };
   GLfloat ambient_intensity[] = { 0.5, 0.5, 0.5, 1.0 };
 
@@ -111,7 +111,7 @@ void init() {
 
   glEnable(GL_LIGHT0);                
   glLightfv(GL_LIGHT0, GL_POSITION, sun_direction);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, sun_intensity);
+  glLightfv(GL_LIGHT0, GL_AMBIENT, sun_intensity);
 
   glEnable(GL_COLOR_MATERIAL);     
   glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -139,6 +139,55 @@ void draw()
   glColor4f(1.0, .85, 0.0,1.0);
   glDisable(GL_LIGHTING);
   glDisable(GL_LIGHT0);
+  glPushMatrix();
+  glTranslatef(0., -10., -30.);
+  /*~Rio~*/
+  glColor4f(0.0, 0.0, 0.5, 1.0);
+  glBegin(GL_TRIANGLES);
+  {
+    glVertex3f(-60., 0., 0.);
+    glVertex3f(-60., 0., 500.);
+    glVertex3f(60., 0., 0.);
+    glVertex3f(60., 0., 0.);
+    glVertex3f(-60., 0., 500.);
+    glVertex3f(60., 0., 500.);
+  }
+  glEnd();
+  /*Terra*/
+  glColor4f(0.48, 0.25, 0.01, 1.0);
+  glBegin(GL_TRIANGLES);
+  {
+    glVertex3f(60., 0., 0.);
+    glVertex3f(60., 0., 500.);
+    glVertex3f(220., 0., 0.);
+    glVertex3f(220., 0., 0.);
+    glVertex3f(60., 0., 500.);
+    glVertex3f(220., 0., 500.);
+  }
+  glEnd();
+  glBegin(GL_TRIANGLES);
+  {
+    glVertex3f(-60., 0., 0.);
+    glVertex3f(-60., 0., 500.);
+    glVertex3f(-220., 0., 0.);
+    glVertex3f(-220., 0., 0.);
+    glVertex3f(-60., 0., 500.);
+    glVertex3f(-220., 0., 500.);
+  }
+  glEnd();
+  /*Céu*/
+  glColor4f(0.6,0.75, 1. ,1.);
+  glBegin(GL_TRIANGLES);
+  {
+    glVertex3f(-220., 0., 500.);
+    glVertex3f(220., 0., 500.);
+    glVertex3f(-220., 200., 500.);
+    glVertex3f(220., 200., 500.);
+    glVertex3f(220., 0., 500.);
+    glVertex3f(-220., 200., 500.);
+  }
+  glEnd();
+  glPopMatrix();
   glBegin(GL_QUADS);
   {
     glVertex3f( 21., 26.,  -19);
