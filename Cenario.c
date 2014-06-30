@@ -120,7 +120,7 @@ void createDefense() {
    if (N < (int) maxDefense && spawnChance > 95.0) {
       p = mallocSafe(sizeof(Point));
       p->x = RandomNumber(-MAX_X, MAX_X);
-      p->y = RandomNumber(10, MAX_Y);
+      p->y = 10;
       p->z = 15.0;
       includeDefense(initDefense(p, DEFAULT_HP, NORMAL)); 
    }
