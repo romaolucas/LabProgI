@@ -15,6 +15,7 @@ typedef struct
   int hp;
   int vidas;
   int speed;
+  int score;
   Point *position;
   Point *orientation;
   TIRO_TIPO attackType;

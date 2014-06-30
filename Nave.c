@@ -12,6 +12,7 @@ void initShip()
     ship = mallocSafe(sizeof(Ship));
     ship->hp = INITIAL_HP;
     ship->vidas = 3;
+    ship->score = 0;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
     ship->orientation = initPoint(0.0, 0.0, 1.0);/*direcao do comeco*/

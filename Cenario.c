@@ -167,6 +167,7 @@ int update() {
      boolean test;
      test = updateDefense(d->defense);
      if (test || isDefenseDestroyed(d->defense)){
+        ship->score += 10;
         a->next = d->next;
         freeDefense(d->defense);
         free(d);
