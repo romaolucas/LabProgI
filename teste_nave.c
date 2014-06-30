@@ -291,24 +291,36 @@ void keyup(unsigned char k, int x, int y)
 void updateKeyboard()
 {
   if (keyboard['w'] || keyboard['W'])
-  {
-    ship->position->y += 1;
-    x_angle = fmax(-24, x_angle - 4);
+  { 
+    if (ship->position->y < 20)
+    {
+     ship->position->y += 1;
+     x_angle = fmax(-24, x_angle - 4);
+    }   
   }
   if (keyboard['s'] || keyboard['S'])
-  {
-    ship->position->y -= 1;
-    x_angle = fmin(24, x_angle + 4);
+  { 
+    if (ship->position->y > -5)
+    {
+     ship->position->y -= 1;
+     x_angle = fmin(24, x_angle + 4);
+    }
   }
   if (keyboard['a'] || keyboard['A'])
-  {
-    ship->position->x +=1;
-    z_angle = fmax(-35, z_angle - 5);
+  { 
+    if (ship->position->x < 12)
+    {
+     ship->position->x +=1;
+     z_angle = fmax(-35, z_angle - 5);
+    }
   }
   if (keyboard['d'] || keyboard['D'])
   {
-    ship->position->x -= 1;
-    z_angle = fmin(35, z_angle + 5);
+    if (ship->position->x > -12)
+    {
+     ship->position->x -= 1;
+     z_angle = fmin(35, z_angle + 5);
+    }
   }
   if (keyboard['e'] || keyboard['E']) {
      forceField = TRUE;
