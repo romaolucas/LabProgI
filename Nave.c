@@ -53,7 +53,6 @@ void collisionsShip(){
    while (t != NULL) {
       /*criar um campo position para a nave*/
       if (t->tiro->source == DEFESA && collision(t->tiro->position, 0.15, ship->position, 3.5)) {
-         printf("colisao\n");
          if (!forceField) shipGotHit(t->tiro->shotPower);
          at->next = t->next; 
          freeTiro(t->tiro);

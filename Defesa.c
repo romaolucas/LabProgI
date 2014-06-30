@@ -40,7 +40,7 @@ void collisionsDefense(Defense *d)
    at = tiroList;
    t = at->next;
    while (t != NULL) {
-      if (t->tiro->source == NAVE && collision(d->position, 7.0, t->tiro->position, 0.15)) {
+      if (t->tiro->source == NAVE && collision(d->position, 2.0, t->tiro->position, 0.15)) {
             defenseGotHit(d, t->tiro->shotPower);
             at->next = t->next;
             freeTiro(t->tiro);
