@@ -33,6 +33,8 @@ double pz = 0;
 double cst_x = 1;
 double cst_L = 3;
 double cst_l = 1.5;
+/*acc pro tiro*/
+double shootAcc = 0.0;
 /*controla o fim do jogo*/
 int gameRunning = TRUE;
 
@@ -351,8 +353,12 @@ void updateKeyboard()
      beginFF = glutGet(GLUT_ELAPSED_TIME);
   }
   if (keyboard['u'] || keyboard['U'])
-      shipShoot();
-
+  {   if (shootAcc > 20)
+      {
+       shipShoot();
+       shootAcc = 0.0;
+      } else shootAcc += 10;
+  }
   if (keyboard['q'] || keyboard['Q']) {
      freeCenario();
      exit(EXIT_SUCCESS);
