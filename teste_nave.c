@@ -189,7 +189,7 @@ void draw()
   sprintf(jogador, "HP: %d    Vidas: %d Pontos: %d", ship->hp, ship->vidas, ship->score);
   glRasterPos3f(16., 23.,-20);
   glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, jogador);
-
+ 
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
   for (d = defenseList->next; d != NULL; d = d->next)
@@ -298,6 +298,7 @@ void computeLocation() {
 
 void timeStep(int n){
   glutTimerFunc(100, timeStep, 1);
+  if (ship->vidas < 0) exit(EXIT_SUCCESS);
   gameRunning = update();
   updateKeyboard();
   if ((glutGet(GLUT_ELAPSED_TIME) - beginFF) >= 1000)
