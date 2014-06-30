@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #define EPSILON 0.042
-#define DZ 0.4
+#define DZ 0.2
 #define MAX_X 6
 #define MAX_Y 15
 #define MAX_Z 25
