@@ -14,8 +14,14 @@
 double z_angle = 0;
 double x_angle = 0;
 
+/*variaveis de controle do campo de forca*/
+
 int forceField = FALSE;
 int beginFF;
+
+/*variaveis para indicar o status do jogo*/
+char jogador[200];
+char pontuacao[200];
 
 /*array de keyboard*/
 int keyboard[256];
@@ -166,6 +172,24 @@ void draw()
   glEnable(GL_NORMALIZE);
   glEnable(GL_TEXTURE_2D);
   glShadeModel(GL_SMOOTH);
+  glColor4f(1.0, .85, 0.0,1.0);
+  glDisable(GL_LIGHTING);
+  glDisable(GL_LIGHT0);
+  glBegin(GL_QUADS);
+  {
+    glVertex3f( 21., 26.,  -19);
+    glVertex3f( 9., 26.,  -19);
+    glVertex3f( 9., 23.,  -19);
+    glVertex3f( 21., 23.,  -19);
+  }
+  glEnd();
+  glColor3f(0.0, 0.0, 0.0);
+  sprintf(jogador, "HP: %d    Vidas: %d", ship->hp, ship->vidas);
+  glRasterPos3f(16., 23.,-20);
+  glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, jogador);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
   for (d = defenseList->next; d != NULL; d = d->next)
   { 
     glPushMatrix();
