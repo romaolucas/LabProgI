@@ -198,7 +198,7 @@ void draw()
     glTranslatef(d->defense->position->x, d->defense->position->y, d->defense->position->z); 
     glBegin(GL_QUADS);              
     {  
-       glColor3f(0.0f, 0.4f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);         
        glVertex3f( 0.8f, 0.8f, -0.8f);
        glVertex3f(-0.8f, 0.8f, -0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -206,7 +206,7 @@ void draw()
        glVertex3f( 0.8f, 0.8f,  0.8f);
  
        /*Bottom face (y = -0.8f)*/
-       glColor3f(0.0f, 0.4f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);       
        glVertex3f( 0.8f, -3.0f,  0.8f);
        glVertex3f(-0.8f, -3.0f,  0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -214,7 +214,7 @@ void draw()
        glVertex3f( 0.8f, -3.0f, -0.8f);
  
        /* Front face  (z = 0.8f)*/
-       glColor3f(0.4f, 0.0f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);      
        glVertex3f( 0.8f,  0.8f, 0.8f);
        glVertex3f(-0.8f,  0.8f, 0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -222,7 +222,7 @@ void draw()
        glVertex3f( 0.8f, -3.0f, 0.8f);
  
        /* Back face (z = -0.8f)*/
-       glColor3f(0.4f, 0.0f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);      
        glVertex3f( 0.8f, -3.0f, -0.8f);
        glVertex3f(-0.8f, -3.0f, -0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -230,7 +230,7 @@ void draw()
        glVertex3f( 0.8f,  0.8f, -0.8f);
  
        /* Left face (x = -0.8f)*/
-       glColor3f(0.4f, 0.0f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);           
        glVertex3f(-0.8f,  0.8f,  0.8f);
        glVertex3f(-0.8f,  0.8f, -0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -238,7 +238,7 @@ void draw()
        glVertex3f(-0.8f, -3.0f,  0.8f);
   
        /* Right face (x = 0.8f)*/
-       glColor3f(0.0f, 0.4f, 0.0f);     
+       glColor3f(0.5f, 0.5f, 0.5f);      
        glVertex3f(0.8f,  0.8f, -0.8f);
        glVertex3f(0.8f,  0.8f,  0.8f);
        glColor3f(0.3f, 0.3f, 0.3f);
@@ -254,7 +254,9 @@ void draw()
    { 
     glPushMatrix(); 
     glTranslatef(t->tiro->position->x, t->tiro->position->y, t->tiro->position->z); 
+    if (t->tiro->source == NAVE)
     glColor3f(0.0f, 0.0f, 0.0f); 
+    else glColor3f(0.5f, 0.27f, 0.0f);
     glutSolidSphere(0.15, 60, 60);
     glPopMatrix();
    }
