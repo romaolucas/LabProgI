@@ -324,7 +324,7 @@ void updateKeyboard()
      exit(EXIT_SUCCESS);
   }
 
-  ship->orientation->y = ship->position->y + sin(x_angle);
+  ship->orientation->y = ship->position->y - tan(x_angle * PI/180) * 15;
   ship->orientation->x = ship->position->x;
 }
 
