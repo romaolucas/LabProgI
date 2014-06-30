@@ -58,6 +58,8 @@ double fmin(double one, double two);
 
 double fmax(double one, double two);
 
+double closeToZero(double now, double rate);
+
 int main(int argc, char **argv){
 
   initShip();
@@ -284,10 +286,6 @@ void keydown(unsigned char k, int x, int y) {
 void keyup(unsigned char k, int x, int y)
 {
   keyboard[k] = false;
-  if (k == 'a' || k == 'A' || k == 'd' || k == 'D')
-    z_angle = 0;
-  if (k == 'w' || k == 'W' || k == 's' || k == 'S')
-    x_angle = 0;
 }
 
 void updateKeyboard()
@@ -295,12 +293,12 @@ void updateKeyboard()
   if (keyboard['w'] || keyboard['W'])
   {
     ship->position->y += 1;
-    x_angle = fmax(-21, x_angle - 4);
+    x_angle = fmax(-24, x_angle - 4);
   }
   if (keyboard['s'] || keyboard['S'])
   {
     ship->position->y -= 1;
-    x_angle = fmin(21, x_angle + 4);
+    x_angle = fmin(24, x_angle + 4);
   }
   if (keyboard['a'] || keyboard['A'])
   {
@@ -323,6 +321,10 @@ void updateKeyboard()
      freeCenario();
      exit(EXIT_SUCCESS);
   }
+  if (!keyboard['w'] && !keyboard['W'] && !keyboard['s'] && !keyboard['S'])
+    x_angle = closeToZero(x_angle, 4);
+  if (!keyboard['a'] && !keyboard['A'] && !keyboard['d'] && !keyboard['D'])
+    z_angle = closeToZero(z_angle, 5);
 
   ship->orientation->y = ship->position->y - tan(x_angle * PI/180) * 15;
   ship->orientation->x = ship->position->x;
@@ -334,4 +336,13 @@ double fmin(double one, double two){
 
 double fmax(double one, double two){
   return one > two ? one : two;
+}
+
+double closeToZero(double now, double rate)
+{
+  if (now > 0)
+    return now - rate;
+  if (now < 0)
+    return now + rate;
+  return 0;
 }

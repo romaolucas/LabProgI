@@ -14,7 +14,7 @@ void initShip()
     ship->vidas = 3;
     ship->speed = INITIAL_SPEED;
     ship->position = initPoint(INITIAL_HPOS, INITIAL_HEIGHT, INITIAL_SPOS);
-    ship->orientation = initPoint(0.0, 0.0, 0.0);/*direcao do comeco*/
+    ship->orientation = initPoint(0.0, 0.0, 1.0);/*direcao do comeco*/
     ship->attackType = NORMAL;
 }
 
