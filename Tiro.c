@@ -11,6 +11,7 @@ Tiro *initTiro(Point *position, Point *orientation, TIRO_TIPO shotType, SRC orig
   Tiro *t;
   t = mallocSafe(sizeof(Tiro));
   t->position = position;
+  t->source = origem;
   t->orientation = orientation;
   if (shotType == NORMAL){
      t->velocity = DEFAULT_VELO;
