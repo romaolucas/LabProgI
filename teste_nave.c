@@ -311,7 +311,13 @@ void computeLocation() {
 
 void timeStep(int n){
   glutTimerFunc(100, timeStep, 1);
-  if (ship->vidas < 0) exit(EXIT_SUCCESS);
+  if (ship->vidas < 0) 
+  { 
+    printf("GAME OVER - Score: %d\n", ship->score);
+    freeShip();
+    freeCenario();
+    exit(EXIT_SUCCESS);
+  }
   gameRunning = update();
   updateKeyboard();
   if ((glutGet(GLUT_ELAPSED_TIME) - beginFF) >= 1000)
